@@ -2,13 +2,16 @@ body {
   background-position: center;
 }
 .container {
+  height: 100vh;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-around;
 }
 .content {
-  height: 50vh;
+  height: 65vh;
+  width: 30%;
+  align-content: center;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -17,6 +20,44 @@ body {
   text-align: center;
 }
 .chat-image {
-  width: 60%;
-  margin: 5%;
+  width: 75%;
+  padding: 5%;
+}
+.message-container {
+  margin-right: 40%;
+  min-height: 60px;
+  display: flex;
+  align-items: flex-end;
+}
+.user-image {
+  background-position: center;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin: 10px 0px 10px 10px;
+}
+.message-container.user {
+  margin-left: 40%;
+  margin-right: 0;
+}
+.text-container {
+  background-color: gray;
+  border-radius: 30px 30px 30px 5px;
+  width: 100%;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 10px;
+  padding: 15px 15px 0px 15px;
+}
+.text-container.user {
+  background-color: lightblue;
+  border-radius: 30px 30px 5px 30px;
+  margin: 10px;
+  padding: 15px 15px 0px 15px;
+}
+
+.message {
+  color: white;
 }

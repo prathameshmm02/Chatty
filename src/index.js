@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Message from './Components/Message';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Message/>
+    <Message isFromUser={false}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
