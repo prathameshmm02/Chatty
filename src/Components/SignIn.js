@@ -1,7 +1,6 @@
-import "./SignIn.css";
-import chatImage from './chatImage.svg';
+import chatImage from '../chatImage.svg';
 
-function SignIn() {
+export default function SignIn() {
   return (
     <div className="container">
       <img src={chatImage} className="chat-image" alt="logo" />
@@ -27,5 +26,3 @@ function SignIn() {
     </div>
   );
 }
-
-export default SignIn;
