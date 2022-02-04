@@ -1,44 +1,23 @@
-import { Link } from "react-router-dom";
 import chatImage from "../chatImage.svg";
 import google from "../Google.svg";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { useState } from "react";
 
-let user;
-
-const signInWithEmailAndPassword = () => {
+const signInWithEmailAndPassword = (email, password) => {
   const auth = getAuth();
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      user = userCredential.user;
-      console.log(user);
-      console.log("Ok");
-    })
-    .catch((error) => {
-      console.log(error.code + error.message);
-    });
+  signInWithEmailAndPassword(auth, email, password);
 };
 
 const signInWithGoogle = () => {
   const provider = new GoogleAuthProvider();
-
   const auth = getAuth();
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      // The signed-in user info.
-      user = result.user;
-      // ...
-    })
-    .catch((error) => {
-      console.log(error.message);
-    });
+  signInWithPopup(auth, provider);
 };
 
 export default function SignIn() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <div className="container">
       <div>
@@ -52,6 +31,7 @@ export default function SignIn() {
           className="form-control"
           placeholder="E-Mail"
           aria-label="E-Mail"
+          onChange={(e) => setEmail(e.target.value)} 
         />
         <input
           id="password"
@@ -59,19 +39,18 @@ export default function SignIn() {
           className="form-control"
           placeholder="Password"
           aria-label="Passwrd"
+          onChange={(e) => setPassword(e.target.value)} 
         />
         <button
           type="button"
           className="btn btn-primary"
-          onClick={signInWithEmailAndPassword}
+          onClick={signInWithEmailAndPassword(email, password)}
         >
           Login
         </button>
-        <Link to="/sign-up" className="btn btn-link">
-          <button type="button" className="btn btn-link">
-            Create account
-          </button>
-        </Link>
+        <button type="button" className="btn btn-link">
+          Create account
+        </button>
         <button
           type="button"
           className="btn btn-primary"

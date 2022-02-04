@@ -1,8 +1,12 @@
 import "./App.css";
 import SignIn from "./Components/SignIn";
 import SignUp from "./Components/SignUp";
+
+import MainScreen from "./Components/MainScreen";
+import 'firebase/app';
+import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAabTWUwgcTkOXeWM-NdrxXpW2YV-4AKlA",
@@ -18,13 +22,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 function App() {
+  const auth = getAuth();
+  const [user] = useAuthState(auth);
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={ <SignIn/> } />
-        <Route path="/sign-up" element={ <SignUp/> } />
-      </Routes>
-    </Router>
+    user ? <MainScreen/> : <SignIn />
   );
 }
 

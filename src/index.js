@@ -7,8 +7,7 @@ import Message from './Components/Message';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Message/>
-    <Message isFromUser={false}/>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
