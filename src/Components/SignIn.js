@@ -1,10 +1,12 @@
 import chatImage from "../chatImage.svg";
 import google from "../Google.svg";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 
-const signInWithEmailAndPassword = (email, password) => {
+const signInWithEmailPass = () => {
   const auth = getAuth();
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
   signInWithEmailAndPassword(auth, email, password);
 };
 
@@ -15,8 +17,6 @@ const signInWithGoogle = () => {
 };
 
 export default function SignIn() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   return (
     <div className="container">
@@ -30,21 +30,17 @@ export default function SignIn() {
           type="text"
           className="form-control"
           placeholder="E-Mail"
-          aria-label="E-Mail"
-          onChange={(e) => setEmail(e.target.value)} 
         />
         <input
           id="password"
           type="password"
           className="form-control"
           placeholder="Password"
-          aria-label="Passwrd"
-          onChange={(e) => setPassword(e.target.value)} 
         />
         <button
           type="button"
           className="btn btn-primary"
-          onClick={signInWithEmailAndPassword(email, password)}
+          onClick={signInWithEmailPass}
         >
           Login
         </button>
