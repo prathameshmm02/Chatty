@@ -1,12 +1,11 @@
 import "./App.css";
-import SignIn from "./Components/SignIn";
-import SignUp from "./Components/SignUp";
 
 import MainScreen from "./Components/MainScreen";
 import 'firebase/app';
 import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Start from "./Components/Start";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAabTWUwgcTkOXeWM-NdrxXpW2YV-4AKlA",
@@ -25,7 +24,7 @@ function App() {
   const auth = getAuth();
   const [user] = useAuthState(auth);
   return (
-    user ? <MainScreen/> : <SignIn />
+    user ? <MainScreen/> : <Start />
   );
 }
 

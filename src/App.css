@@ -10,18 +10,33 @@ body {
 }
 .content {
   height: 65vh;
-  width: 30%;
+  width: 50%;
   align-content: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-around;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: grey 0px 0px 10px;
 }
 .title {
   text-align: center;
 }
 .chat-image {
-  width: 75%;
+  width: 90%;
   padding: 5%;
+}
+.login {
+  width: 100%;
+}
+.google-signin {
+  width: fit-content;
+  color: black;
+  background-color: white;
+}
+.google-logo {
+  margin: 0px 10px;
 }
 .message-container {
   margin-right: 40%;

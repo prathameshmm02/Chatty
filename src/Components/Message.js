@@ -3,9 +3,11 @@ import React from "react";
 import "../App.css";
 
 export default function Message(props) {
-  const {text, uid, photoURL} = props.message;
+  const {text, photoURL, uid } = props.message
   const auth = getAuth();
-  return uid == auth.currentUser.uid ? sentMessage(text) : receivedMessage(text, photoURL, uid);
+  return uid === auth.currentUser.uid
+    ? sentMessage(text)
+    : receivedMessage(text, photoURL, uid);
 }
 
 function sentMessage(text) {
@@ -21,7 +23,7 @@ function sentMessage(text) {
 function receivedMessage(text, photoURL, uid) {
   return (
     <div className="message-container">
-      <img className="user-image" src={photoURL} alt="User Photo" />
+      <img className="user-image" src={photoURL} alt = "UserImage" />
       <div className="text-container">
         <h6 className="user-name">{uid}</h6>
         <p className="message">{text}</p>

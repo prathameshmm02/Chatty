@@ -16,11 +16,13 @@ export default function Chat() {
   const messagesRef = collection(db, "messages");
   const q = query(messagesRef, orderBy("createdAt"), limit(25));
 
-  const [messages] = useCollectionData( q, { idField: "id" });
+  const [messages] = useCollectionData(q, { idField: "id" });
   return (
     <div>
       {messages &&
-        messages.map((msg) => <Message key={msg.id} message={msg} />)}
+        messages.map((msg) => (
+          <Message key={msg.id} message={msg} />
+        ))}
     </div>
   );
 }
