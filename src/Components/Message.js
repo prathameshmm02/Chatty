@@ -3,7 +3,7 @@ import React from "react";
 import "../App.css";
 
 export default function Message(props) {
-  const {text, photoURL, uid } = props.message
+  const { text, photoURL, uid } = props.message;
   const auth = getAuth();
   return uid === auth.currentUser.uid
     ? sentMessage(text)
@@ -12,10 +12,8 @@ export default function Message(props) {
 
 function sentMessage(text) {
   return (
-    <div className="message-container user">
-      <div className="text-container user">
-        <p className="message">{text}</p>
-      </div>
+    <div className="message-container sent">
+      <p className="message sent">{text}</p>
     </div>
   );
 }
@@ -23,11 +21,8 @@ function sentMessage(text) {
 function receivedMessage(text, photoURL, uid) {
   return (
     <div className="message-container">
-      <img className="user-image" src={photoURL} alt = "UserImage" />
-      <div className="text-container">
-        <h6 className="user-name">{uid}</h6>
-        <p className="message">{text}</p>
-      </div>
+      <img className="user-image" src={photoURL} />
+      <p className="message">{text}</p>
     </div>
   );
 }

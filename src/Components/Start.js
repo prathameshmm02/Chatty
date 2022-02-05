@@ -39,7 +39,7 @@ export default function Start() {
       <div>
         <img src={chatImage} className="chat-image" alt="logo" />
       </div>
-      {isLoginScreen ? <SignIn/> : <SignUp/>}
+      {isLoginScreen ? <SignIn /> : <SignUp />}
     </div>
   );
 

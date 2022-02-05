@@ -37,41 +37,70 @@ body {
 .google-logo {
   margin: 0px 10px;
 }
+header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #a8cbff;
+  align-items: center;
+  height: 10vh;
+  padding: 0px 15px;
+}
+main {
+  display: flex;
+  flex-direction: row;
+}
+.chatlist-container {
+  width: 30%;
+}
+.chat-container {
+  width: 70%;
+}
+.messages-container {
+  overflow-y: scroll;
+  max-height: 80vh;
+}
 .message-container {
-  margin-right: 40%;
   min-height: 60px;
   display: flex;
   align-items: flex-end;
 }
 .user-image {
   background-position: center;
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
   margin: 10px 0px 10px 10px;
 }
-.message-container.user {
-  margin-left: 40%;
-  margin-right: 0;
-}
-.text-container {
-  background-color: gray;
-  border-radius: 30px 30px 30px 5px;
-  width: 100%;
-  min-height: 60px;
+.message {
+  background-color: darkgray;
+  border-radius: 30px;
+  width: auto;
+  margin: 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 10px;
-  padding: 15px 15px 0px 15px;
-}
-.text-container.user {
-  background-color: lightblue;
-  border-radius: 30px 30px 5px 30px;
-  margin: 10px;
-  padding: 15px 15px 0px 15px;
-}
-
-.message {
+  padding: 10px 20px;
   color: white;
+}
+.message-container.sent {
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+.message.sent {
+  background-color: #a8cbff;
+  color: black;
+}
+.chatBox-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 10vh;
+  padding: 10px;
+}
+#chatBox {
+  margin: 5px;
+}
+.send-icon {
+  background-color: transparent;
+  border-color: transparent;
 }

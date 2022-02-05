@@ -8,12 +8,15 @@ export default function MainScreen() {
   return (
     <div>
       <header>
+        <h3>Chatty</h3>
         <button type="button" className="btn btn-primary" onClick={signOutUser}>
           Sign Out
         </button>
       </header>
-      <ChatList />
-      <Chat />
+      <main>
+        <ChatList />
+        <Chat />
+      </main>
     </div>
   );
 }
