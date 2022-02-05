@@ -8,13 +8,12 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Start from "./Components/Start";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAabTWUwgcTkOXeWM-NdrxXpW2YV-4AKlA",
-  authDomain: "chatty-8ac08.firebaseapp.com",
-  projectId: "chatty-8ac08",
-  storageBucket: "chatty-8ac08.appspot.com",
-  messagingSenderId: "313924004391",
-  appId: "1:313924004391:web:c030bf38ff3b8886073c02",
-  measurementId: "G-HKLXBBJHPP"
+  apiKey: "AIzaSyCyFLNN1H6jLMQH8Ld004LXL6p06lbjIAA",
+  authDomain: "chatty-f3c4a.firebaseapp.com",
+  projectId: "chatty-f3c4a",
+  storageBucket: "chatty-f3c4a.appspot.com",
+  messagingSenderId: "996566643806",
+  appId: "1:996566643806:web:b581ffa8184811c19a30cf"
 };
 
 // Initialize Firebase
