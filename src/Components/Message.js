@@ -3,8 +3,10 @@ import React from "react";
 import "../App.css";
 
 export default function Message(props) {
-  const { text, photoURL, uid } = props.message;
+  let { text, photoURL, uid } = props.message;
   const auth = getAuth();
+  photoURL = photoURL ? photoURL : "https://avatars.dicebear.com/api/initials/" +  auth.currentUser.email + ".svg"
+
   return uid === auth.currentUser.uid
     ? sentMessage(text)
     : receivedMessage(text, photoURL, uid);
