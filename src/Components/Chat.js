@@ -1,13 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Message from "./Message";
 import {
   getFirestore,
   collection,
   query,
-  limit,
   orderBy,
-  doc,
-  setDoc,
   serverTimestamp,
   addDoc,
 } from "firebase/firestore";
@@ -20,21 +17,24 @@ import { getAuth } from "firebase/auth";
 export default function Chat() {
   const db = getFirestore();
   const messagesRef = collection(db, "messages");
-  const q = query(messagesRef, orderBy("createdAt"), limit(25));
+  const q = query(messagesRef, orderBy("createdAt"));
 
   const [messages] = useCollectionData(q, { idField: "id" });
+
+  const [message, setMessage] = useState("");
 
   console.log(messages);
   const sendMessage = async (e) => {
     e.preventDefault();
     const { uid, photoURL } = getAuth().currentUser;
+
     await addDoc(collection(db, "messages"), {
       createdAt: serverTimestamp(),
-      text: document.getElementById("chatBox").value,
+      text: message,
       uid: uid,
       photoURL: photoURL,
     });
-    document.getElementById("chatBox").value = "";
+    setMessage("");
   };
 
   return (
@@ -43,12 +43,18 @@ export default function Chat() {
         {messages &&
           messages.map((msg) => <Message key={msg.id} message={msg} />)}
       </div>
-      <div className="chatBox-container">
-        <input type="text" id="chatBox" className="form-control" />
-        <button onClick={sendMessage} className="send-icon">
+      <form className="chatBox-container" onSubmit={sendMessage}>
+        <input
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          type="text"
+          id="chatBox"
+          className="form-control"
+        />
+        <button type="submit" disabled={!message} className="send-icon">
           <img src={sendIcon} alt="Send" />
         </button>
-      </div>
+      </form>
     </div>
   );
 }
