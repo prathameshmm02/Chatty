@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Message from "./Message";
 import {
   getFirestore,
@@ -23,12 +23,18 @@ export default function Chat() {
 
   const [message, setMessage] = useState("");
 
+  const dummy = useRef();
+
+  useEffect(() => {
+    dummy.current.scrollIntoView({ behavior: 'smooth' });
+  }, [messages])
+
   console.log(messages);
   const sendMessage = async (e) => {
     e.preventDefault();
     const { uid, photoURL } = getAuth().currentUser;
 
-    await addDoc(collection(db, "messages"), {
+    await addDoc(messagesRef, {
       createdAt: serverTimestamp(),
       text: message,
       uid: uid,
@@ -42,6 +48,7 @@ export default function Chat() {
       <div className="messages-container">
         {messages &&
           messages.map((msg) => <Message key={msg.id} message={msg} />)}
+          <span ref={dummy}></span>
       </div>
       <form className="chatBox-container" onSubmit={sendMessage}>
         <input
