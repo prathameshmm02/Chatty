@@ -48,7 +48,7 @@ export default function Chat() {
       <div className="messages-container">
         {messages &&
           messages.map((msg) => <Message key={msg.id} message={msg} />)}
-          <span ref={dummy}></span>
+        <span ref={dummy}></span>
       </div>
       <form className="chatBox-container" onSubmit={sendMessage}>
         <input
