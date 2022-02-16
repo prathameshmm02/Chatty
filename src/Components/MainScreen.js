@@ -1,17 +1,17 @@
-import { signOut } from "firebase/auth";
 import React from "react";
 import Chat from "./Chat";
 import ChatList from "./ChatList";
 import { getAuth } from "firebase/auth";
+import { Button } from "react-bootstrap";
 
 export default function MainScreen() {
   return (
     <div>
       <header>
         <h3>Chatty</h3>
-        <button type="button" className="btn btn-primary" onClick={signOutUser}>
+        <Button variant="primary" onClick={signOutUser}>
           Sign Out
-        </button>
+        </Button>
       </header>
       <main>
         <ChatList />

@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 export default function ChatItem(props) {
     let { chatName, chatImage, chatDescription } = props.chat;
 
@@ -10,8 +8,4 @@ export default function ChatItem(props) {
             <p className='chat-desc'>{chatDescription}</p>
         </div>
     </div>
-}
-ChatItem.propTypes = {
-    name: PropTypes.string,
-    img: PropTypes.string
 }
