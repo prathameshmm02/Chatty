@@ -9,9 +9,9 @@ import {
   addDoc,
 } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import sendIcon from "../send_icon.svg";
 import { getAuth } from "firebase/auth";
 import { Button, Form, FormControl } from "react-bootstrap";
+import SendRoundedIcon from "@mui/icons-material/SendRounded";
 /**
  * Chat Messages Component
  */
@@ -33,12 +33,12 @@ export default function Chat() {
   console.log(messages);
   const sendMessage = async (e) => {
     e.preventDefault();
-    const { uid, photoURL } = getAuth().currentUser;
+    const { displayName, photoURL } = getAuth().currentUser;
 
     await addDoc(messagesRef, {
       createdAt: serverTimestamp(),
       text: message,
-      uid: uid,
+      displayName: displayName,
       photoURL: photoURL,
     });
     setMessage("");
@@ -59,8 +59,13 @@ export default function Chat() {
           id="chatBox"
           className="form-control"
         />
-        <Button  variant="light" type="submit" disabled={!message} className="send-icon">
-          <img src={sendIcon} alt="Send" />
+        <Button
+          variant="light"
+          type="submit"
+          disabled={!message}
+          className="send-icon"
+        >
+          <SendRoundedIcon />
         </Button>
       </Form>
     </div>

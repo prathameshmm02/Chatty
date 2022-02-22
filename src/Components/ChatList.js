@@ -11,8 +11,15 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import ChatItem from "./ChatItem";
-import { DialogActions, DialogContent, TextField, Box } from "@mui/material";
+import {
+  DialogActions,
+  DialogContent,
+  TextField,
+  Box,
+  Fab,
+} from "@mui/material";
 import { Button } from "react-bootstrap";
+import AddIcon from "@mui/icons-material/Add";
 
 /*
  * List of all chats
@@ -29,8 +36,10 @@ export default function ChatList() {
   const [chats] = useCollectionData(q, { idField: "chatID" });
   return (
     <div className="chatlist-container">
+      <div className="chatlist">
+        {chats && chats.map((chat) => <ChatItem key={chat.id} chat={chat} />)}
+      </div>
       <NewChat />
-      {chats && chats.map((chat) => <ChatItem key={chat.id} chat={chat} />)}
     </div>
   );
 }
@@ -66,7 +75,12 @@ function NewChat() {
 
   return (
     <>
-      <Button onClick={handleClickOpen}>Create new chat </Button>
+      <div className="add-fab">
+        <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
+          <AddIcon />
+        </Fab>
+      </div>
+
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Create New Chat</DialogTitle>
         <DialogContent>
