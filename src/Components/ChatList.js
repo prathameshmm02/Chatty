@@ -2,13 +2,13 @@ import { getAuth } from "firebase/auth";
 import { collection, getFirestore, query, where } from "firebase/firestore";
 import React from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import ChatItem from "./ChatItem";
+import ChatListItem from "./ChatListItem";
 import NewChat from "./NewChat";
 
 /*
  * List of all chats
  */
-export default function ChatList() {
+export default function ChatList({ onChatSelected }) {
   const auth = getAuth();
   const db = getFirestore();
   const chatsRef = collection(db, "chats");
@@ -21,7 +21,16 @@ export default function ChatList() {
   return (
     <div className="chatlist-container">
       <div className="chatlist">
-        {chats && chats.map((chat) => <ChatItem key={chat.id} chat={chat} />)}
+        {chats &&
+          chats.map((chat) => (
+            <ChatListItem
+              key={chat.id}
+              chat={chat}
+              onChatSelected={(id) => {
+                onChatSelected(id);
+              }}
+            />
+          ))}
       </div>
       <NewChat />
     </div>

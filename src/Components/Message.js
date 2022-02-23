@@ -9,9 +9,6 @@ export default function Message(props) {
     photoURL =
       "https://avatars.dicebear.com/api/initials/" + displayName + ".svg";
   }
-  console.log(displayName);
-  console.log(auth.currentUser.displayName);
-  console.log(displayName === auth.currentUser.displayName);
   return displayName === auth.currentUser.displayName
     ? SentMessage(text)
     : ReceivedMessage(text, photoURL, displayName);
@@ -28,7 +25,7 @@ function SentMessage(text) {
 function ReceivedMessage(text, photoURL, name) {
   return (
     <div className="message-container">
-      <img className="user-image" src={photoURL} />
+      <img className="user-image" src={photoURL} alt=""/>
       <div className="message">
         <h6 style={{ color: RandomColor(name) }} className="m-0">
           {name}

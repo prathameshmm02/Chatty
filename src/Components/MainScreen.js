@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 
 export default function MainScreen() {
+  const [chatID, setChatID] = useState("");
   return (
     <div>
       <header>
@@ -21,8 +22,12 @@ export default function MainScreen() {
         </Button>
       </header>
       <main>
-        <ChatList />
-        <Chat />
+        <ChatList
+          onChatSelected={(id) => {
+            setChatID(id);
+          }}
+        />
+        <Chat id={chatID} />
       </main>
       <DisplayName />
     </div>

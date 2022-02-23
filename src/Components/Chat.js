@@ -15,7 +15,7 @@ import SendRoundedIcon from "@mui/icons-material/SendRounded";
 /**
  * Chat Messages Component
  */
-export default function Chat() {
+export default function Chat({id}) {
   const db = getFirestore();
   const messagesRef = collection(db, "messages");
   const q = query(messagesRef, orderBy("createdAt"));
@@ -30,7 +30,6 @@ export default function Chat() {
     dummy.current.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  console.log(messages);
   const sendMessage = async (e) => {
     e.preventDefault();
     const { displayName, photoURL } = getAuth().currentUser;
