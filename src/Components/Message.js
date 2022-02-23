@@ -1,7 +1,6 @@
 import { getAuth } from "firebase/auth";
-import randomColor from "randomcolor";
-import React from "react";
 import "../App.css";
+import RandomColor from "./RandomColor";
 
 export default function Message(props) {
   let { text, photoURL, displayName } = props.message;
@@ -14,11 +13,11 @@ export default function Message(props) {
   console.log(auth.currentUser.displayName);
   console.log(displayName === auth.currentUser.displayName);
   return displayName === auth.currentUser.displayName
-    ? sentMessage(text)
-    : receivedMessage(text, photoURL, displayName);
+    ? SentMessage(text)
+    : ReceivedMessage(text, photoURL, displayName);
 }
 
-function sentMessage(text) {
+function SentMessage(text) {
   return (
     <div className="message-container sent">
       <p className="message sent">{text}</p>
@@ -26,12 +25,14 @@ function sentMessage(text) {
   );
 }
 
-function receivedMessage(text, photoURL, name) {
+function ReceivedMessage(text, photoURL, name) {
   return (
     <div className="message-container">
       <img className="user-image" src={photoURL} />
       <div className="message">
-        <h6 style={{color : randomColor()}} className="m-0">{name}</h6>
+        <h6 style={{ color: RandomColor(name) }} className="m-0">
+          {name}
+        </h6>
         <p className="m-0">{text}</p>
       </div>
     </div>
