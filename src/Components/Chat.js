@@ -32,13 +32,14 @@ export default function Chat({id}) {
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    const { displayName, photoURL } = getAuth().currentUser;
+    const { displayName, photoURL, email } = getAuth().currentUser;
 
     await addDoc(messagesRef, {
       createdAt: serverTimestamp(),
       text: message,
       displayName: displayName,
       photoURL: photoURL,
+      email : email
     });
     setMessage("");
   };

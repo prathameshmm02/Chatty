@@ -3,13 +3,13 @@ import "../App.css";
 import RandomColor from "./RandomColor";
 
 export default function Message(props) {
-  let { text, photoURL, displayName } = props.message;
+  let { text, photoURL, displayName, email } = props.message;
   const auth = getAuth();
   if (photoURL == null) {
     photoURL =
       "https://avatars.dicebear.com/api/initials/" + displayName + ".svg";
   }
-  return displayName === auth.currentUser.displayName
+  return email === auth.currentUser.email
     ? SentMessage(text)
     : ReceivedMessage(text, photoURL, displayName);
 }
@@ -25,7 +25,7 @@ function SentMessage(text) {
 function ReceivedMessage(text, photoURL, name) {
   return (
     <div className="message-container">
-      <img className="user-image" src={photoURL} alt=""/>
+      <img className="user-image" src={photoURL} alt="" />
       <div className="message">
         <h6 style={{ color: RandomColor(name) }} className="m-0">
           {name}
