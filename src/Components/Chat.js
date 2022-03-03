@@ -15,7 +15,6 @@ import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import ImageRoundedIcon from "@mui/icons-material/ImageRounded";
 import { useAlert } from "react-alert";
 import useStorage from "../hooks/useStorage";
-import { LinearProgress } from "@mui/material";
 /**
  * Chat Messages Component
  */
@@ -80,7 +79,7 @@ export default function Chat({ id }) {
         displayName: displayName,
         photoURL: photoURL,
         email: email,
-        mediaUrl, mediaUrl
+        mediaUrl: mediaUrl
       });
       setMessage("");
     }

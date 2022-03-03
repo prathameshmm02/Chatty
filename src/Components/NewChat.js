@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { Button } from "react-bootstrap";
 import AddIcon from "@mui/icons-material/Add";
+import { getAuth } from "firebase/auth";
 
 export default function NewChat() {
   const [open, setOpen] = React.useState(false);
@@ -41,6 +42,7 @@ export default function NewChat() {
       chatImage: chatImage,
       chatName: chatName,
       isGroup: true,
+      userlist: [getAuth().currentUser.uid]
     });
     handleClose();
   };

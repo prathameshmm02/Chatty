@@ -120,7 +120,7 @@ main {
 }
 .media {
   width: 100%;
-  margin: 5px;
+  padding: 15px 5px;
 }
 .media img {
   border-radius: 10px;
