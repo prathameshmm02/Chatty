@@ -68,13 +68,20 @@ main {
 .message-container,
 .chatItem-container {
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
 }
 .chatItem-container {
   min-height: 75px;
+  width: auto;
   display: flex;
   align-content: center;
   align-items: center;
+  cursor: pointer;
+  border-radius: 10px;
+  margin: 5px;
+}
+.chatItem-container:hover {
+  background-color: #72727233;
 }
 .user-image,
 .chat-image {

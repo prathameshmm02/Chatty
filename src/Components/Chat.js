@@ -79,13 +79,13 @@ export default function Chat({ id }) {
         displayName: displayName,
         photoURL: photoURL,
         email: email,
-        mediaUrl: mediaUrl
+        mediaUrl: mediaUrl,
       });
       setMessage("");
     }
   }, [mediaUrl]);
 
-  console.log(messages)
+  console.log(id);
   return (
     <div className="chat-container">
       <div className="messages-container">

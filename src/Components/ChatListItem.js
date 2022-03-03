@@ -1,11 +1,11 @@
 export default function ChatListItem(props) {
-  console.log(props)
-  let { id, chatName, chatImage, chatDescription } = props.chat;  
+  console.log(props);
+  let { chatID, chatName, chatImage, chatDescription } = props.chat;
   return (
     <div
       className="chatItem-container"
       onClick={() => {
-        props.onChatSelected(id);
+        props.setChatID(chatID);
       }}
     >
       <img className="chat-image" src={chatImage} alt="" />

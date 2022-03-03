@@ -8,7 +8,7 @@ import NewChat from "./NewChat";
 /*
  * List of all chats
  */
-export default function ChatList({ onChatSelected }) {
+export default function ChatList({ setChatID }) {
   const auth = getAuth();
   const db = getFirestore();
   const chatsRef = collection(db, "chats");
@@ -23,13 +23,7 @@ export default function ChatList({ onChatSelected }) {
       <div className="chatlist">
         {chats &&
           chats.map((chat) => (
-            <ChatListItem
-              key={chat.id}
-              chat={chat}
-              onChatSelected={(id) => {
-                onChatSelected(id);
-              }}
-            />
+            <ChatListItem key={chat.id} chat={chat} setChatID={setChatID} />
           ))}
       </div>
       <NewChat />

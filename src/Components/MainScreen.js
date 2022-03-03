@@ -22,11 +22,7 @@ export default function MainScreen() {
         </Button>
       </header>
       <main>
-        <ChatList
-          onChatSelected={(id) => {
-            setChatID(id);
-          }}
-        />
+        <ChatList setChatID={setChatID} />
         <Chat id={chatID} />
       </main>
       <DisplayName />
