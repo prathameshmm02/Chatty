@@ -68,7 +68,7 @@ main {
 .message-container,
 .chatItem-container {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 .chatItem-container {
   min-height: 75px;
@@ -120,6 +120,7 @@ main {
 }
 .media {
   width: 100%;
+  margin: 5px;
 }
 .media img {
   border-radius: 10px;

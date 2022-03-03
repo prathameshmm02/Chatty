@@ -28,7 +28,7 @@ function SentMessage(text, mediaUrl) {
 
 function ReceivedMessage(text, photoURL, name, mediaUrl, type) {
   return (
-    <div className="message-container sent">
+    <div className="message-container">
       <img className="user-image" src={photoURL} alt="" />
       <div className="message">
         <h6 style={{ color: RandomColor(name) }} className="m-0">
