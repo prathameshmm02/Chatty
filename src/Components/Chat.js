@@ -22,7 +22,6 @@ import ChatHeader from "./ChatHeader";
 export default function Chat({ id }) {
   const db = getFirestore();
   const messagesRef = collection(db, "chats", id, "messages");
-  console.log(messagesRef.path)
   const q = query(messagesRef, orderBy("createdAt"));
 
   const [messages] = useCollectionData(q, { idField: "id" });
@@ -89,7 +88,7 @@ export default function Chat({ id }) {
 
   return (
     <div className="chat-container">
-      <ChatHeader />
+      <ChatHeader id={id}/>
       <div className="messages-container">
         {file && <ProgressBar now={progress} />}
         {messages &&

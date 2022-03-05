@@ -99,7 +99,7 @@ main {
   width: 90%;
   padding: 5%;
 }
-.chatItem-textContainer {
+.chatItem-textContainer, .chatHeader-textContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;

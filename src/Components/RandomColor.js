@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function RandomColor(name) {
-  const [color, setColor] = useState(stringToHslColor(name, 80, 50));
+  const [color] = useState(stringToHslColor(name, 80, 50));
   return color;
 }
 

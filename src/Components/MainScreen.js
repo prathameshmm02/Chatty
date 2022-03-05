@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 
 export default function MainScreen() {
-  const [chatID, setChatID] = useState("DDPTsJcSZ8fNWJj86zrQ");
+  const [chatID, setChatID] = useState("newChat");
   return (
     <div>
       <main>
