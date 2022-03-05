@@ -15,12 +15,14 @@ import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import ImageRoundedIcon from "@mui/icons-material/ImageRounded";
 import { useAlert } from "react-alert";
 import useStorage from "../hooks/useStorage";
+import ChatHeader from "./ChatHeader";
 /**
  * Chat Messages Component
  */
 export default function Chat({ id }) {
   const db = getFirestore();
-  const messagesRef = collection(db, "messages");
+  const messagesRef = collection(db, "chats", id, "messages");
+  console.log(messagesRef.path)
   const q = query(messagesRef, orderBy("createdAt"));
 
   const [messages] = useCollectionData(q, { idField: "id" });
@@ -85,16 +87,17 @@ export default function Chat({ id }) {
     }
   }, [mediaUrl]);
 
-  console.log(id);
   return (
     <div className="chat-container">
+      <ChatHeader />
       <div className="messages-container">
         {file && <ProgressBar now={progress} />}
         {messages &&
           messages.map((msg) => <Message key={msg.id} message={msg} />)}
         <span ref={dummy}></span>
       </div>
-      <Form className="chatBox-container" onSubmit={sendMessage}>
+      { id &&
+        <Form className="chatBox-container" onSubmit={sendMessage}>
         <FormControl
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -115,6 +118,7 @@ export default function Chat({ id }) {
           <SendRoundedIcon />
         </Button>
       </Form>
+}
     </div>
   );
 }

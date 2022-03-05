@@ -1,7 +1,9 @@
 import {
   addDoc,
   collection,
-  getFirestore
+  doc,
+  getFirestore,
+  setDoc
 } from "firebase/firestore";
 import React from "react";
 import Dialog from "@mui/material/Dialog";
@@ -35,8 +37,8 @@ export default function NewChat() {
 
   const createChat = async (e) => {
     const db = getFirestore();
-    const chatsRef = collection(db, "chats");
-    await addDoc(chatsRef, {
+    const chatsRef = doc(db, "chats", chatID);
+    await setDoc(chatsRef, {
       chatDescription: description,
       chatID: chatID,
       chatImage: chatImage,

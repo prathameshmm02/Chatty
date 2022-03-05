@@ -12,15 +12,9 @@ import {
 } from "@mui/material";
 
 export default function MainScreen() {
-  const [chatID, setChatID] = useState("");
+  const [chatID, setChatID] = useState("DDPTsJcSZ8fNWJj86zrQ");
   return (
     <div>
-      <header>
-        <h3>Chatty</h3>
-        <Button variant="primary" onClick={signOutUser}>
-          Sign Out
-        </Button>
-      </header>
       <main>
         <ChatList setChatID={setChatID} />
         <Chat id={chatID} />

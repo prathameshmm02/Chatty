@@ -61,6 +61,9 @@ main {
 .chat-container {
   width: 70%;
 }
+.chat-header-container {
+  height: 10vh;
+}
 .messages-container {
   overflow-y: scroll;
   height: 80vh;
