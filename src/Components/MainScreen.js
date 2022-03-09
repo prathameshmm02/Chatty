@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Chat from "./Chat";
 import ChatList from "./ChatList";
 import { getAuth, updateProfile } from "firebase/auth";
@@ -12,12 +12,29 @@ import {
 } from "@mui/material";
 
 export default function MainScreen() {
-  const [chatID, setChatID] = useState("newChat");
+  const [chatID, setChatID] = useState(null);
+  const escFunction = useCallback((event) => {
+    if (event.key === "Escape") {
+      setChatID(null);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("keydown", escFunction, false);
+
+    return () => {
+      document.removeEventListener("keydown", escFunction, false);
+    };
+  }, [escFunction]);
   return (
     <div>
       <main>
         <ChatList setChatID={setChatID} />
-        <Chat id={chatID} />
+        {chatID ? (
+          <Chat id={chatID} />
+        ) : (
+          <h4> Click on a chat to start chatting</h4>
+        )}
       </main>
       <DisplayName />
     </div>

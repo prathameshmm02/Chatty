@@ -18,10 +18,10 @@ export default function Message(props) {
 function SentMessage(text, mediaUrl) {
   return (
     <div className="message-container sent">
-      <p className="message sent">
+      <div className="message sent">
         {mediaUrl && <Media mediaUrl={mediaUrl} /* type={type} */ />}
         {text}
-      </p>
+      </div>
     </div>
   );
 }
@@ -44,7 +44,7 @@ function ReceivedMessage(text, photoURL, name, mediaUrl, type) {
 function Media({ mediaUrl }) {
   return (
     <div className="media">
-      <img src={mediaUrl} width={"100%"} height={"auto"} />
+      <img src={mediaUrl} width={"100%"} height={"auto"} alt=""/>
     </div>
     /* {
         {
