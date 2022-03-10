@@ -1,6 +1,4 @@
 import {
-  addDoc,
-  collection,
   doc,
   getFirestore,
   setDoc

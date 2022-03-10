@@ -35,7 +35,7 @@ export default function Start() {
   const [isLoginScreen, setLoginScreen] = useState(true);
 
   return (
-    <div className="container">
+    <div className="flex flex-col items-center h-screen container md:flex-row">
       <div>
         <img src={chatImage} className="start-image" alt="logo" />
       </div>
@@ -45,7 +45,7 @@ export default function Start() {
 
   function SignIn() {
     return (
-      <div className="content">
+      <div className="content flex flex-col items-center justify-around content-center p-4 rounded-2xl shadow-lg   bg-slate-200">
         <h1 className="title">Chatty</h1>
         <input
           id="email"

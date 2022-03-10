@@ -20,6 +20,10 @@ export default function ChatList({ setChatID }) {
   const [chats] = useCollectionData(q, { idField: "chatID" });
   return (
     <div className="chatlist-container">
+      <div className="flex flex-row">
+        <h3>Chatty</h3>
+        <button onClick={signOutUser()}><span class="material-icons">logout</span></button>
+      </div>
       <div className="chatlist">
         {chats &&
           chats.map((chat) => (
@@ -29,4 +33,9 @@ export default function ChatList({ setChatID }) {
       <NewChat />
     </div>
   );
+}
+
+function signOutUser() {
+  const auth = getAuth();
+  auth.signOut();
 }

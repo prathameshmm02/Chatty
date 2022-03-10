@@ -1,5 +1,4 @@
 import { getAuth } from "firebase/auth";
-import ReactPlayer from "react-player";
 import "../App.css";
 import RandomColor from "./RandomColor";
 

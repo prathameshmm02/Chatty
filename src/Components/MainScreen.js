@@ -40,10 +40,6 @@ export default function MainScreen() {
     </div>
   );
 }
-function signOutUser() {
-  const auth = getAuth();
-  auth.signOut();
-}
 
 function DisplayName() {
   const [open, setOpen] = useState(getAuth().currentUser.displayName === null);
