@@ -46,7 +46,7 @@ export default function Start() {
   function SignIn() {
     return (
       <div className="content flex flex-col items-center justify-around content-center p-4 rounded-2xl shadow-lg   bg-slate-200">
-        <h1 className="title">Chatty</h1>
+        <h1 className="text-center">Chatty</h1>
         <input
           id="email"
           type="text"
@@ -90,7 +90,7 @@ export default function Start() {
   function SignUp() {
     return (
       <div className="content">
-        <h1 className="title">Chatty</h1>
+        <h1 className="text-center">Chatty</h1>
         <input
           id="email"
           type="text"

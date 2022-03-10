@@ -28,7 +28,7 @@ export default function MainScreen() {
   }, [escFunction]);
   return (
     <div>
-      <main>
+      <main className="flex flex-row">
         <ChatList setChatID={setChatID} />
         {chatID ? (
           <Chat id={chatID} />

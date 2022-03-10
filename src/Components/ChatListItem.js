@@ -1,5 +1,4 @@
 export default function ChatListItem(props) {
-  console.log(props);
   let { chatID, chatName, chatImage, chatDescription } = props.chat;
   return (
     <div
