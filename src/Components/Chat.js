@@ -88,7 +88,7 @@ export default function Chat({ id }) {
   return (
     <div className="chat-container">
       <ChatHeader id={id} />
-      <div className="messages-container">
+      <div className="overflow-y-scroll h-[80vh]">
         {file && <ProgressBar now={progress} />}
         {messages &&
           messages.map((msg) => <Message key={msg.id} message={msg} />)}

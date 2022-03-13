@@ -10,7 +10,7 @@ export default function ChatHeader(props) {
       {chat && (
         <div className="flex flex-row">
           <img
-            className="chat-image"
+            className="bg-center h-10 w-10 rounded-full m-3"
             src={
               chat.chatImage
                 ? chat.chatImage
@@ -20,9 +20,9 @@ export default function ChatHeader(props) {
             }
             alt=""
           />
-          <div className="chatHeader-textContainer">
-            <h6 className="chat-name">{chat.chatName}</h6>
-            <p className="chat-desc">{chat.chatDescription}</p>
+          <div className="flex flex-col justify-center">
+            <h6 className="p-0 m-0">{chat.chatName}</h6>
+            <p className="p-0 m-0">{chat.chatDescription}</p>
           </div>
           <AddUser chatID={props.id} />
         </div>

@@ -68,7 +68,7 @@ export default function Start() {
             className="form-control"
             placeholder="Password"
           />
-          <button type="submit" className="btn btn-primary submit">
+          <button type="submit" className="btn btn-primary w-full">
             Login
           </button>
         </form>
@@ -115,7 +115,7 @@ export default function Start() {
           />
           <button
             type="button"
-            className="btn btn-primary submit"
+            className="btn btn-primary w-full"
             onClick={signUpWithEmailPass}
           >
             Register
