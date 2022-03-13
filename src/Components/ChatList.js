@@ -14,7 +14,7 @@ export default function ChatList({ setChatID }) {
   const chatsRef = collection(db, "chats");
   const q = query(
     chatsRef,
-    where("userlist", "array-contains", auth.currentUser.uid)
+    where("userlist", "array-contains", auth.currentUser.email)
   );
 
   const [chats] = useCollectionData(q, { idField: "chatID" });

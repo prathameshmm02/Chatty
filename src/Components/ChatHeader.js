@@ -1,7 +1,6 @@
 import { doc, getFirestore } from "firebase/firestore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import PersonAddAlt1RoundedIcon from "@mui/icons-material/PersonAddAlt1Rounded";
-import { Button } from "react-bootstrap";
+import AddUser from "./AddUser"
 
 export default function ChatHeader(props) {
   const chatRef = doc(getFirestore(), "chats", props.id);
@@ -10,14 +9,22 @@ export default function ChatHeader(props) {
     <div className="chat-header-container">
       {chat && (
         <div className="flex flex-row">
-          <img className="chat-image" src={chat.chatImage} alt="" />
+          <img
+            className="chat-image"
+            src={
+              chat.chatImage
+                ? chat.chatImage
+                : "https://avatars.dicebear.com/api/initials/" +
+                  chat.chatName +
+                  ".svg"
+            }
+            alt=""
+          />
           <div className="chatHeader-textContainer">
             <h6 className="chat-name">{chat.chatName}</h6>
             <p className="chat-desc">{chat.chatDescription}</p>
           </div>
-          <Button variant="light">
-            <PersonAddAlt1RoundedIcon />
-          </Button>
+          <AddUser chatID={props.id} />
         </div>
       )}
     </div>
