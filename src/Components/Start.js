@@ -2,7 +2,6 @@ import React from "react";
 import chatImage from "../chatImage.svg";
 import google from "../Google.svg";
 import { useState } from "react";
-import { useAlert } from "react-alert";
 
 import {
   getAuth,
@@ -42,7 +41,7 @@ export default function Start() {
   return (
     <div className="flex flex-col items-center h-screen container md:flex-row">
       <div>
-        <img src={chatImage} className="start-image" alt="logo" />
+        <img src={chatImage} className="m-3 w-11/12" alt="logo" />
       </div>
       {isLoginScreen ? <SignIn /> : <SignUp />}
     </div>
@@ -50,7 +49,7 @@ export default function Start() {
 
   function SignIn() {
     return (
-      <div className="content flex flex-col justify-around p-4 rounded-2xl hover:shadow-lg hover:shadow-gray-500/30 transition duration-300 bg-slate-200">
+      <div className="h-2/3 w-1/2 flex flex-col justify-around p-4 rounded-2xl hover:shadow-lg hover:shadow-gray-500/30 transition duration-300 bg-slate-200">
         <h1 className="text-center">Chatty</h1>
         <form
           onSubmit={signInWithEmailPass}

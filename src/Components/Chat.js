@@ -10,7 +10,7 @@ import {
 } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { getAuth } from "firebase/auth";
-import { Button, Form, FormControl, ProgressBar } from "react-bootstrap";
+import { ProgressBar } from "react-bootstrap";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import ImageRoundedIcon from "@mui/icons-material/ImageRounded";
 import { useAlert } from "react-alert";
@@ -95,13 +95,16 @@ export default function Chat({ id }) {
         <span ref={dummy}></span>
       </div>
       {id && (
-        <form className="flex flex-row items-center justify-around gap-1 mx-2 h-[10vh] p-2" onSubmit={sendMessage}>
-          <div className="flex flex-row w-full border-2 rounded-full border-gray-600 items-center px-4">
-            <input 
+        <form
+          className="flex flex-row items-center justify-around gap-1 mx-2 h-[10vh] p-2"
+          onSubmit={sendMessage}
+        >
+          <div className="flex flex-row w-full border-2 focus-within:shadow-constant transition duration-300 rounded-2xl border-accent/30 focus-within:border-accent/40 items-center px-2">
+            <input
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               type="text"
-              className="w-full py-2 outline-none bg-transparent"
+              className="w-full py-2 mx-2 outline-none bg-transparent"
             />
             <label>
               <input type="file" onChange={handleChange} className="w-0 h-0" />
@@ -113,7 +116,7 @@ export default function Chat({ id }) {
             variant="light"
             type="submit"
             disabled={!message}
-            className="p-2 disabled:opacity-50 rounded-full bg-accent text-center"
+            className="p-2 disabled:opacity-50 rounded-2xl bg-accent text-center"
           >
             <SendRoundedIcon />
           </button>

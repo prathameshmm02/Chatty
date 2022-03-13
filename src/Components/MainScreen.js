@@ -28,12 +28,14 @@ export default function MainScreen() {
   }, [escFunction]);
   return (
     <div>
-      <main className="flex flex-row">
+      <main className="flex flex-row h-screen">
         <ChatList setChatID={setChatID} />
         {chatID ? (
           <Chat id={chatID} />
         ) : (
-          <h4> Click on a chat to start chatting</h4>
+          <h4 className="text-center self-center mx-auto">
+            Click on a chat to start chatting
+          </h4>
         )}
       </main>
       <DisplayName />

@@ -9,7 +9,6 @@ import {
   TextField,
 } from "@mui/material";
 import { arrayUnion, doc, getFirestore, updateDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
 
 export default function NewChat({ chatID }) {
   const [email, setEmail] = useState(null);
@@ -33,7 +32,7 @@ export default function NewChat({ chatID }) {
   return (
     <>
       <button
-        className="ml-auto px-3 my-1 rounded-full bg-slate-400"
+        className="ml-auto mr-2 p-3 focus:shadow-constant rounded-full bg-slate-400 h-fit"
         onClick={handleClickOpen}
       >
         <PersonAddAlt1RoundedIcon />

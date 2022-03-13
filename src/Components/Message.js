@@ -17,7 +17,7 @@ export default function Message(props) {
 function SentMessage(text, mediaUrl) {
   return (
     <div className="flex justify-end">
-      <div className="message sent flex flex-col text-white items-start">
+      <div className="message sent rounded-3xl flex flex-col text-white items-start">
         {mediaUrl && <Media mediaUrl={mediaUrl} /* type={type} */ />}
         {text}
       </div>
@@ -28,8 +28,12 @@ function SentMessage(text, mediaUrl) {
 function ReceivedMessage(text, photoURL, name, mediaUrl, type) {
   return (
     <div className="flex items-end">
-      <img className="bg-center h-10 w-10 rounded-full m-3" src={photoURL} alt="" />
-      <div className="message flex flex-col text-white items-start">
+      <img
+        className="bg-center h-10 w-10 rounded-full m-3"
+        src={photoURL}
+        alt=""
+      />
+      <div className="message rounded-2xl flex flex-col text-white items-start ">
         <h6 style={{ color: RandomColor(name) }} className="m-0">
           {name}
         </h6>
@@ -43,11 +47,7 @@ function ReceivedMessage(text, photoURL, name, mediaUrl, type) {
 function Media({ mediaUrl }) {
   return (
     <div className="media">
-      <img
-        className="w-96 rounded-lg"
-        src={mediaUrl}
-        alt=""
-      />
+      <img className="w-96 rounded-lg" src={mediaUrl} alt="" />
     </div>
     /* {
         {

@@ -1,15 +1,8 @@
 body {
   background-position: center;
 }
-.content {
-  height: 65vh;
-  width: 50%;
-}
-.submit {
-  width: 100%;
-}
 .chatlist-container {
-  width: 30%;
+  width: 30vw;
   background: #f5f5f5;
 }
 .add-fab {
@@ -18,23 +11,14 @@ body {
   right: 71%;
 }
 .chat-container {
-  width: 70%;
-}
-.chat-header-container {
-  height: 10vh;
+  width: 70vw;
 }
 .chatItem-container {
   min-height: 75px;
 }
-.start-image {
-  margin: 10px;
-  width: 90%;
-  padding: 5%;
-}
 .message {
   width: fit-content;
   background-color: #182533;
-  border-radius: 20px;
   max-width: 70%;
   margin: 10px 0px;
   padding: 10px 20px;

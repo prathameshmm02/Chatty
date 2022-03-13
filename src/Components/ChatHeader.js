@@ -1,14 +1,14 @@
 import { doc, getFirestore } from "firebase/firestore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import AddUser from "./AddUser"
+import AddUser from "./AddUser";
 
 export default function ChatHeader(props) {
   const chatRef = doc(getFirestore(), "chats", props.id);
   const [chat] = useDocumentData(chatRef);
   return (
-    <div className="chat-header-container">
+    <>
       {chat && (
-        <div className="flex flex-row">
+        <div className="flex flex-row items-center bg-slate-200 h-[10vh]">
           <img
             className="bg-center h-10 w-10 rounded-full m-3"
             src={
@@ -27,6 +27,6 @@ export default function ChatHeader(props) {
           <AddUser chatID={props.id} />
         </div>
       )}
-    </div>
+    </>
   );
 }

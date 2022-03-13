@@ -6,7 +6,7 @@ module.exports = {
         accent: "#0d6efd",
       },
       boxShadow: {
-        'constant': '0px 0px 10px 0px #0d6efd',
+        'constant': '0px 0px 5px 0px #0d6efd'
       }
     },
   },
