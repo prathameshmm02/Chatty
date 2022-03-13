@@ -2,6 +2,7 @@ import React from "react";
 import chatImage from "../chatImage.svg";
 import google from "../Google.svg";
 import { useState } from "react";
+import { useAlert } from "react-alert";
 
 import {
   getAuth,
@@ -11,21 +12,25 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 
-const signInWithEmailPass = () => {
+const signInWithEmailPass = (e) => {
+  e.preventDefault();
   const auth = getAuth();
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
-  signInWithEmailAndPassword(auth, email, password);
+  try {
+    signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {}
 };
 
-const signUpWithEmailPass = () => {
+const signUpWithEmailPass = (e) => {
+  e.preventDefault();
   const auth = getAuth();
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   createUserWithEmailAndPassword(auth, email, password);
 };
 
-const signInWithGoogle = () => {
+const signInWithGoogle = (e) => {
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
   signInWithPopup(auth, provider);
@@ -45,27 +50,28 @@ export default function Start() {
 
   function SignIn() {
     return (
-      <div className="content flex flex-col items-center justify-around content-center p-4 rounded-2xl shadow-lg   bg-slate-200">
+      <div className="content flex flex-col justify-around p-4 rounded-2xl hover:shadow-lg hover:shadow-gray-500/30 transition duration-300 bg-slate-200">
         <h1 className="text-center">Chatty</h1>
-        <input
-          id="email"
-          type="text"
-          className="form-control"
-          placeholder="E-Mail"
-        />
-        <input
-          id="password"
-          type="password"
-          className="form-control"
-          placeholder="Password"
-        />
-        <button
-          type="button"
-          className="btn btn-primary submit"
-          onClick={signInWithEmailPass}
+        <form
+          onSubmit={signInWithEmailPass}
+          className="flex flex-col items-center justify-around gap-y-4"
         >
-          Login
-        </button>
+          <input
+            id="email"
+            type="text"
+            className="form-control"
+            placeholder="E-Mail"
+          />
+          <input
+            id="password"
+            type="password"
+            className="form-control"
+            placeholder="Password"
+          />
+          <button type="submit" className="btn btn-primary submit">
+            Login
+          </button>
+        </form>
         <button
           type="button"
           className="btn btn-link"
@@ -77,10 +83,10 @@ export default function Start() {
         </button>
         <button
           type="button"
-          className="btn btn-outline-primary"
+          className="flex flex-row border-accent border-2 rounded-md p-2 hover:bg-accent hover:text-white w-fit self-center"
           onClick={signInWithGoogle}
         >
-          <img className="google-logo" src={google} alt="" />
+          <img className="mr-2" src={google} alt="" />
           Sign in with Google
         </button>
       </div>
@@ -89,27 +95,32 @@ export default function Start() {
 
   function SignUp() {
     return (
-      <div className="content">
+      <div className="content flex flex-col justify-around p-4 rounded-2xl hover:shadow-lg hover:shadow-gray-500/30 transition duration-300 bg-slate-200">
         <h1 className="text-center">Chatty</h1>
-        <input
-          id="email"
-          type="text"
-          className="form-control"
-          placeholder="E-Mail"
-        />
-        <input
-          id="password"
-          type="password"
-          className="form-control"
-          placeholder="Password"
-        />
-        <button
-          type="button"
-          className="btn btn-primary submit"
-          onClick={signUpWithEmailPass}
+        <form
+          onSubmit={signInWithGoogle}
+          className="flex flex-col items-center justify-around gap-y-4"
         >
-          Register
-        </button>
+          <input
+            id="email"
+            type="text"
+            className="form-control"
+            placeholder="E-Mail"
+          />
+          <input
+            id="password"
+            type="password"
+            className="form-control"
+            placeholder="Password"
+          />
+          <button
+            type="button"
+            className="btn btn-primary submit"
+            onClick={signUpWithEmailPass}
+          >
+            Register
+          </button>
+        </form>
         <button
           type="button"
           className="btn btn-link"
@@ -121,10 +132,10 @@ export default function Start() {
         </button>
         <button
           type="button"
-          className="btn btn-outline-primary"
+          className="flex flex-row border-accent border-2 rounded-md p-2 hover:bg-accent hover:text-white w-fit self-center"
           onClick={signInWithGoogle}
         >
-          <img className="google-logo" src={google} alt="" />
+          <img className="mr-2" src={google} alt="" />
           Register with Google
         </button>
       </div>

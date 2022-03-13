@@ -48,7 +48,6 @@ export default function Chat({ id }) {
       setFile(null);
       alert.show("Please select an image file (png, jpg or gif)");
     }
-    console.log(selected);
   };
 
   const { progress, mediaUrl } = useStorage(file);
@@ -88,36 +87,38 @@ export default function Chat({ id }) {
 
   return (
     <div className="chat-container">
-      <ChatHeader id={id}/>
+      <ChatHeader id={id} />
       <div className="messages-container">
         {file && <ProgressBar now={progress} />}
         {messages &&
           messages.map((msg) => <Message key={msg.id} message={msg} />)}
         <span ref={dummy}></span>
       </div>
-      { id &&
-        <Form className="chatBox-container" onSubmit={sendMessage}>
-        <FormControl
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          type="text"
-          id="chatBox"
-          className="form-control"
-        />
-        <label>
-          <input type="file" onChange={handleChange} />
-          <ImageRoundedIcon />
-        </label>
-        <Button
-          variant="light"
-          type="submit"
-          disabled={!message}
-          className="send-icon"
-        >
-          <SendRoundedIcon />
-        </Button>
-      </Form>
-}
+      {id && (
+        <form className="flex flex-row items-center justify-around gap-1 mx-2 h-[10vh] p-2" onSubmit={sendMessage}>
+          <div className="flex flex-row w-full border-2 rounded-full border-gray-600 items-center px-4">
+            <input 
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              type="text"
+              className="w-full py-2 outline-none bg-transparent"
+            />
+            <label>
+              <input type="file" onChange={handleChange} className="w-0 h-0" />
+              <ImageRoundedIcon />
+            </label>
+          </div>
+
+          <button
+            variant="light"
+            type="submit"
+            disabled={!message}
+            className="p-2 disabled:opacity-50 rounded-full bg-accent text-center"
+          >
+            <SendRoundedIcon />
+          </button>
+        </form>
+      )}
     </div>
   );
 }

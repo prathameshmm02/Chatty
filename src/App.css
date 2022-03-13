@@ -8,14 +8,6 @@ body {
 .submit {
   width: 100%;
 }
-.google-signin {
-  width: fit-content;
-  color: black;
-  background-color: white;
-}
-.google-logo {
-  margin: 0px 10px;
-}
 .chatlist-container {
   width: 30%;
   background: #f5f5f5;
@@ -102,20 +94,6 @@ body {
 }
 .media img {
   border-radius: 10px;
-}
-.chatBox-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  height: 10vh;
-  padding: 10px;
-}
-#chatBox {
-  margin: 5px;
-}
-label input {
-  height: 0;
-  width: 0;
 }
 .send-icon {
   background-color: transparent;

@@ -7,7 +7,7 @@ export default function Message(props) {
   const auth = getAuth();
   if (photoURL == null) {
     photoURL =
-      "https://avatars.dicebear.com/api/initials/" + displayName + ".svg";
+      "https://avatars.dicebear.com/api/bottts/" + displayName + ".svg";
   }
   return email === auth.currentUser.email
     ? SentMessage(text, mediaUrl)
@@ -43,7 +43,7 @@ function ReceivedMessage(text, photoURL, name, mediaUrl, type) {
 function Media({ mediaUrl }) {
   return (
     <div className="media">
-      <img src={mediaUrl} width={"100%"} height={"auto"} alt=""/>
+      <img className="w-96" src={mediaUrl} width={"100%"} height={"auto"} alt=""/>
     </div>
     /* {
         {

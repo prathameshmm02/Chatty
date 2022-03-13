@@ -1,5 +1,9 @@
 export default function ChatListItem(props) {
   let { chatID, chatName, chatImage, chatDescription } = props.chat;
+  if (!chatImage) {
+    chatImage =
+      "https://avatars.dicebear.com/api/initials/" + chatName + ".svg";
+  }
   return (
     <div
       className="chatItem-container"

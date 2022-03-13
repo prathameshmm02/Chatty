@@ -1,8 +1,4 @@
-import {
-  doc,
-  getFirestore,
-  setDoc
-} from "firebase/firestore";
+import { doc, getFirestore, setDoc, getDoc } from "firebase/firestore";
 import React from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -16,9 +12,11 @@ import {
 import { Button } from "react-bootstrap";
 import AddIcon from "@mui/icons-material/Add";
 import { getAuth } from "firebase/auth";
+import { useAlert } from "react-alert";
 
 export default function NewChat() {
   const [open, setOpen] = React.useState(false);
+  const alert = useAlert()
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,14 +34,23 @@ export default function NewChat() {
   const createChat = async (e) => {
     const db = getFirestore();
     const chatsRef = doc(db, "chats", chatID);
-    await setDoc(chatsRef, {
-      chatDescription: description,
-      chatID: chatID,
-      chatImage: chatImage,
-      chatName: chatName,
-      isGroup: true,
-      userlist: [getAuth().currentUser.uid]
-    });
+    const docSnap = await getDoc(chatsRef);
+
+    if (docSnap.exists()) {
+      alert.show("Chat with same ID already exists")
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+      await setDoc(chatsRef, {
+        chatDescription: description,
+        chatID: chatID,
+        chatImage: chatImage,
+        chatName: chatName,
+        isGroup: true,
+        userlist: [getAuth().currentUser.email],
+      });
+    }
+
     handleClose();
   };
 
