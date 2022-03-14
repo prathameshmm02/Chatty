@@ -36,17 +36,18 @@ export default function Chat({ id, setSelectedImg }) {
 
   const [file, setFile] = useState(null);
 
-  const types = ["image/png", "image/jpeg", "image/gif"];
+  const types = ["image", "video", "audio"];
 
   const alert = useAlert();
   const handleChange = (e) => {
     let selected = e.target.files[0];
 
-    if (selected && types.includes(selected.type)) {
+    if (selected && types.includes(selected.type.substring(0, selected.type.indexOf("/")))) {
       setFile(selected);
     } else {
       setFile(null);
       alert.show("Please select an image file (png, jpg or gif)");
+      console.log(selected.type);
     }
   };
 
@@ -69,6 +70,7 @@ export default function Chat({ id, setSelectedImg }) {
 
   useEffect(() => {
     if (mediaUrl) {
+      const oldFile = file;
       setFile(null);
       const { displayName, photoURL, email } = getAuth().currentUser;
 
@@ -80,16 +82,16 @@ export default function Chat({ id, setSelectedImg }) {
         photoURL: photoURL,
         email: email,
         mediaUrl: mediaUrl,
+        type: oldFile.type,
       });
       setMessage("");
     }
   }, [mediaUrl]);
-  console.log(setSelectedImg)
   return (
     <div className="chat-container">
       <ChatHeader id={id} />
       <div className="overflow-y-auto h-[80vh]">
-        {file && <ProgressBar now={progress} />}
+        {file && <ProgressBar now={progress} className="sticky"/>}
         {messages &&
           messages.map((msg) => (
             <Message

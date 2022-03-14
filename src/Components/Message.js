@@ -1,9 +1,10 @@
 import { getAuth } from "firebase/auth";
+import ReactPlayer from "react-player";
 import "../App.css";
 import RandomColor from "./RandomColor";
 
 export default function Message(props) {
-  let { text, photoURL, displayName, email, mediaUrl } = props.message;
+  let { text, photoURL, displayName, email, mediaUrl, type } = props.message;
   const auth = getAuth();
   if (photoURL == null) {
     photoURL =
@@ -14,6 +15,7 @@ export default function Message(props) {
       text={text}
       mediaUrl={mediaUrl}
       setSelectedImg={props.setSelectedImg}
+      type={type}
     />
   ) : (
     <ReceivedMessage
@@ -22,18 +24,20 @@ export default function Message(props) {
       displayName={displayName}
       mediaUrl={mediaUrl}
       setSelectedImg={props.setSelectedImg}
+      type={type}
     />
   );
 }
 
-function SentMessage({ text, mediaUrl, setSelectedImg }) {
+function SentMessage({ text, mediaUrl, setSelectedImg, type }) {
   return (
     <div className="flex justify-end mx-1">
       <div className="message sent rounded-3xl flex flex-col text-white items-start">
         {mediaUrl && (
           <Media
             mediaUrl={mediaUrl}
-            /* type={type} */ setSelectedImg={setSelectedImg}
+            setSelectedImg={setSelectedImg}
+            type={type}
           />
         )}
         {text}
@@ -64,7 +68,8 @@ function ReceivedMessage({
         {mediaUrl && (
           <Media
             mediaUrl={mediaUrl}
-            /* type={type} */ setSelectedImg={setSelectedImg}
+            setSelectedImg={setSelectedImg}
+            type={type}
           />
         )}
         <p className="m-0">{text}</p>
@@ -73,10 +78,40 @@ function ReceivedMessage({
   );
 }
 
-function Media({ mediaUrl, setSelectedImg }) {
+function Media({ mediaUrl, setSelectedImg, type }) {
   return (
     <div className="media">
-      <img onClick={() => setSelectedImg(mediaUrl)} className="w-96 rounded-lg cursor-pointer" src={mediaUrl} alt="" />
+      {(() => {
+        switch (type.substring(0, type.indexOf("/"))) {
+          case "image":
+            return (
+              <img
+                onClick={() => setSelectedImg(mediaUrl)}
+                className="w-96 rounded-lg cursor-pointer"
+                src={mediaUrl}
+                alt=""
+              />
+            );
+          case "video":
+            return (
+              <ReactPlayer
+                url={mediaUrl}
+                className="w-96 h-auto"
+                controls={true}
+                width="40vw"
+              />
+            );
+          case "audio":
+            return <ReactPlayer
+            url={mediaUrl}
+            controls={true}
+            width="30vw"
+            height="10vh"
+          />;
+          default:
+            return null;
+        }
+      })()}
     </div>
     /* {
         {
