@@ -10,6 +10,7 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
+import Modal from "./Modal";
 
 export default function MainScreen() {
   const [chatID, setChatID] = useState(null);
@@ -26,12 +27,14 @@ export default function MainScreen() {
       document.removeEventListener("keydown", escFunction, false);
     };
   }, [escFunction]);
+
+  const [selectedImg, setSelectedImg] = useState(null);
   return (
     <div>
       <main className="flex flex-row h-screen">
         <ChatList setChatID={setChatID} />
         {chatID ? (
-          <Chat id={chatID} />
+          <Chat id={chatID} setSelectedImg={setSelectedImg} />
         ) : (
           <h4 className="text-center self-center mx-auto">
             Click on a chat to start chatting
@@ -39,6 +42,9 @@ export default function MainScreen() {
         )}
       </main>
       <DisplayName />
+      {selectedImg && (
+        <Modal selectedImg={selectedImg} setSelectedImg={setSelectedImg} />
+      )}
     </div>
   );
 }

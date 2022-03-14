@@ -19,7 +19,7 @@ import ChatHeader from "./ChatHeader";
 /**
  * Chat Messages Component
  */
-export default function Chat({ id }) {
+export default function Chat({ id, setSelectedImg }) {
   const db = getFirestore();
   const messagesRef = collection(db, "chats", id, "messages");
   const q = query(messagesRef, orderBy("createdAt"));
@@ -84,14 +84,20 @@ export default function Chat({ id }) {
       setMessage("");
     }
   }, [mediaUrl]);
-
+  console.log(setSelectedImg)
   return (
     <div className="chat-container">
       <ChatHeader id={id} />
       <div className="overflow-y-auto h-[80vh]">
         {file && <ProgressBar now={progress} />}
         {messages &&
-          messages.map((msg) => <Message key={msg.id} message={msg} />)}
+          messages.map((msg) => (
+            <Message
+              key={msg.id}
+              message={msg}
+              setSelectedImg={setSelectedImg}
+            />
+          ))}
         <span ref={dummy}></span>
       </div>
       {id && (

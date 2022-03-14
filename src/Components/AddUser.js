@@ -32,7 +32,7 @@ export default function NewChat({ chatID }) {
   return (
     <>
       <button
-        className="ml-auto mr-2 p-3 transition duration-300 rounded-full hover:bg-slate-400 h-fit"
+        className="mr-2 p-3 transition duration-300 rounded-full hover:bg-slate-400 h-fit"
         onClick={handleClickOpen}
       >
         <PersonAddAlt1RoundedIcon />

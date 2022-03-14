@@ -9,23 +9,47 @@ export default function Message(props) {
     photoURL =
       "https://avatars.dicebear.com/api/bottts/" + displayName + ".svg";
   }
-  return email === auth.currentUser.email
-    ? SentMessage(text, mediaUrl)
-    : ReceivedMessage(text, photoURL, displayName, mediaUrl);
+  return email === auth.currentUser.email ? (
+    <SentMessage
+      text={text}
+      mediaUrl={mediaUrl}
+      setSelectedImg={props.setSelectedImg}
+    />
+  ) : (
+    <ReceivedMessage
+      text={text}
+      photoURL={photoURL}
+      displayName={displayName}
+      mediaUrl={mediaUrl}
+      setSelectedImg={props.setSelectedImg}
+    />
+  );
 }
 
-function SentMessage(text, mediaUrl) {
+function SentMessage({ text, mediaUrl, setSelectedImg }) {
   return (
     <div className="flex justify-end mx-1">
       <div className="message sent rounded-3xl flex flex-col text-white items-start">
-        {mediaUrl && <Media mediaUrl={mediaUrl} /* type={type} */ />}
+        {mediaUrl && (
+          <Media
+            mediaUrl={mediaUrl}
+            /* type={type} */ setSelectedImg={setSelectedImg}
+          />
+        )}
         {text}
       </div>
     </div>
   );
 }
 
-function ReceivedMessage(text, photoURL, name, mediaUrl, type) {
+function ReceivedMessage({
+  text,
+  photoURL,
+  displayName,
+  mediaUrl,
+  setSelectedImg,
+  type,
+}) {
   return (
     <div className="flex items-end">
       <img
@@ -34,20 +58,25 @@ function ReceivedMessage(text, photoURL, name, mediaUrl, type) {
         alt=""
       />
       <div className="message rounded-2xl flex flex-col text-white items-start ">
-        <h6 style={{ color: RandomColor(name) }} className="m-0">
-          {name}
+        <h6 style={{ color: RandomColor(displayName) }} className="m-0">
+          {displayName}
         </h6>
-        {mediaUrl && <Media mediaUrl={mediaUrl} /* type={type} */ />}
+        {mediaUrl && (
+          <Media
+            mediaUrl={mediaUrl}
+            /* type={type} */ setSelectedImg={setSelectedImg}
+          />
+        )}
         <p className="m-0">{text}</p>
       </div>
     </div>
   );
 }
 
-function Media({ mediaUrl }) {
+function Media({ mediaUrl, setSelectedImg }) {
   return (
     <div className="media">
-      <img className="w-96 rounded-lg" src={mediaUrl} alt="" />
+      <img onClick={() => setSelectedImg(mediaUrl)} className="w-96 rounded-lg cursor-pointer" src={mediaUrl} alt="" />
     </div>
     /* {
         {

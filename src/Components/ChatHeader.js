@@ -1,6 +1,8 @@
+import { DeleteRounded } from "@mui/icons-material";
 import { doc, getFirestore } from "firebase/firestore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import AddUser from "./AddUser";
+import DeleteChat from "./DeleteChat";
 
 export default function ChatHeader(props) {
   const chatRef = doc(getFirestore(), "chats", props.id);
@@ -24,7 +26,10 @@ export default function ChatHeader(props) {
             <h6 className="p-0 m-0">{chat.chatName}</h6>
             <p className="p-0 m-0">{chat.chatDescription}</p>
           </div>
-          <AddUser chatID={props.id} />
+          <div className="ml-auto">
+            <AddUser chatID={props.id} />
+            <DeleteChat />
+          </div>
         </div>
       )}
     </>
