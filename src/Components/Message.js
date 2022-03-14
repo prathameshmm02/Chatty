@@ -16,7 +16,7 @@ export default function Message(props) {
 
 function SentMessage(text, mediaUrl) {
   return (
-    <div className="flex justify-end">
+    <div className="flex justify-end mx-1">
       <div className="message sent rounded-3xl flex flex-col text-white items-start">
         {mediaUrl && <Media mediaUrl={mediaUrl} /* type={type} */ />}
         {text}

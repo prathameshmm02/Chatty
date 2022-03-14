@@ -37,7 +37,7 @@ export default function ChatList({ setChatID }) {
       <div>
         <div className="flex flex-row cursor-pointer text-center ">
           <h6
-            className="w-1/2 py-3 m-0"
+            className="w-1/2 py-3 m-0 transition duration-500 rounded-xl hover:bg-blue-300"
             onClick={() => {
               setCurrentTab(0);
             }}
@@ -45,7 +45,7 @@ export default function ChatList({ setChatID }) {
             Groups
           </h6>
           <h6
-            className="w-1/2 py-3 m-0"
+            className="w-1/2 py-3 m-0 rounded-xl duration-500 transition hover:bg-blue-300"
             onClick={() => {
               setCurrentTab(1);
             }}
@@ -61,7 +61,7 @@ export default function ChatList({ setChatID }) {
         ></div>
       </div>
 
-      <div className="overflow-y-scroll flex-grow flex-shrink">
+      <div className="overflow-y-auto flex-grow flex-shrink">
         {chats &&
           chats.map((chat) => (
             <ChatListItem key={chat.id} chat={chat} setChatID={setChatID} />
