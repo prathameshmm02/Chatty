@@ -29,12 +29,13 @@ export default function MainScreen() {
   }, [escFunction]);
 
   const [selectedImg, setSelectedImg] = useState(null);
+  const [isPersonal, setPersonal] = useState(false)
   return (
     <div>
       <main className="flex flex-row h-screen">
-        <ChatList setChatID={setChatID} />
+        <ChatList setChatID={setChatID} isPersonal={isPersonal} setPersonal={setPersonal}/>
         {chatID ? (
-          <Chat id={chatID} setSelectedImg={setSelectedImg} />
+          <Chat id={chatID} setSelectedImg={setSelectedImg} isPersonal={isPersonal}/>
         ) : (
           <h4 className="text-center self-center mx-auto">
             Click on a chat to start chatting
