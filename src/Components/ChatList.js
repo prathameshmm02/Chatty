@@ -3,6 +3,7 @@ import { collection, getFirestore, query, where } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import ChatListItem from "./ChatListItem";
 import NewChat from "./NewChat";
+import NewPersonalChat from "./NewPersonalChat";
 
 /*
  * List of all chats
@@ -27,7 +28,11 @@ export default function ChatList({ setChatID, isPersonal, setPersonal }) {
           <h6
             className="w-1/2 py-3 m-0 transition duration-500 rounded-xl hover:bg-blue-300"
             onClick={() => {
-              setPersonal(false);
+              if (isPersonal) {
+                setPersonal(false);
+                setChatID(null)
+              }
+
             }}
           >
             Groups
@@ -35,7 +40,10 @@ export default function ChatList({ setChatID, isPersonal, setPersonal }) {
           <h6
             className="w-1/2 py-3 m-0 rounded-xl duration-500 transition hover:bg-blue-300"
             onClick={() => {
-              setPersonal(true);
+              if (!isPersonal) {
+                setPersonal(true);
+                setChatID(null)
+              }
             }}
           >
             Personal
@@ -47,15 +55,15 @@ export default function ChatList({ setChatID, isPersonal, setPersonal }) {
             (isPersonal ? "translate-x-full" : "translate-x-0")
           }
         ></div>
-        { isPersonal ? <PersonalList /> :
-          <GroupList setChatID={setChatID}/> }
+        {isPersonal ? <PersonalList setChatID={setChatID} /> :
+          <GroupList setChatID={setChatID} />}
 
       </div>
     </div>
   );
 }
 
-function GroupList({setChatID}) {
+function GroupList({ setChatID }) {
   const auth = getAuth();
   const db = getFirestore();
   const chatsRef = collection(db, "chats");
@@ -78,13 +86,13 @@ function GroupList({setChatID}) {
   );
 }
 
-function PersonalList({setChatID}) {
+function PersonalList({ setChatID }) {
   const auth = getAuth();
   const db = getFirestore();
   const chatsRef = collection(db, "personal");
   const q = query(
     chatsRef,
-    where("userlist", "array-contains", auth.currentUser.email)
+    where("userlist", "array-contains", auth.currentUser.uid)
   );
 
   const [chats] = useCollectionData(q, { idField: "chatID" });
@@ -96,6 +104,7 @@ function PersonalList({setChatID}) {
             <ChatListItem key={chat.id} chat={chat} setChatID={setChatID} />
           ))}
       </div>
+      <NewPersonalChat />
     </>
   );
 }

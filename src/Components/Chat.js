@@ -16,12 +16,13 @@ import ImageRoundedIcon from "@mui/icons-material/ImageRounded";
 import { useAlert } from "react-alert";
 import useStorage from "../hooks/useStorage";
 import ChatHeader from "./ChatHeader";
+import PersonalChatHeader from "./PersonalChatHeader";
 /**
  * Chat Messages Component
  */
-export default function Chat({ id, setSelectedImg }) {
+export default function Chat({ id, setSelectedImg, isPersonal }) {
   const db = getFirestore();
-  const messagesRef = collection(db, "chats", id, "messages");
+  const messagesRef = collection(db, isPersonal ? "personal" : "chats", id, "messages");
   const q = query(messagesRef, orderBy("createdAt"));
 
   const [messages] = useCollectionData(q, { idField: "id" });
@@ -89,9 +90,13 @@ export default function Chat({ id, setSelectedImg }) {
   }, [mediaUrl]);
   return (
     <div className="chat-container">
-      <ChatHeader id={id} />
+      {
+        isPersonal ? <PersonalChatHeader /> :
+          <ChatHeader id={id} />
+      }
+
       <div className="overflow-y-auto h-[80vh]">
-        {file && <ProgressBar now={progress} className="sticky"/>}
+        {file && <ProgressBar now={progress} className="sticky" />}
         {messages &&
           messages.map((msg) => (
             <Message

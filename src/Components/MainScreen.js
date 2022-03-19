@@ -11,6 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import Modal from "./Modal";
+import { collection, getFirestore, setDoc } from "firebase/firestore";
 
 export default function MainScreen() {
   const [chatID, setChatID] = useState(null);
@@ -33,9 +34,9 @@ export default function MainScreen() {
   return (
     <div>
       <main className="flex flex-row h-screen">
-        <ChatList setChatID={setChatID} isPersonal={isPersonal} setPersonal={setPersonal}/>
+        <ChatList setChatID={setChatID} isPersonal={isPersonal} setPersonal={setPersonal} />
         {chatID ? (
-          <Chat id={chatID} setSelectedImg={setSelectedImg} isPersonal={isPersonal}/>
+          <Chat id={chatID} setSelectedImg={setSelectedImg} isPersonal={isPersonal} />
         ) : (
           <h4 className="text-center self-center mx-auto">
             Click on a chat to start chatting
@@ -51,18 +52,27 @@ export default function MainScreen() {
 }
 
 function DisplayName() {
-  const [open, setOpen] = useState(getAuth().currentUser.displayName === null);
+  const currentUser = getAuth().currentUser
+  const [open, setOpen] = useState(currentUser.displayName === null || currentUser.photoURL === null);
 
   const handleClose = () => {
     setOpen(false);
   };
 
   const [name, setName] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
 
   const createUser = () => {
     updateProfile(getAuth().currentUser, {
       displayName: name,
+      photoURL: photoUrl ? photoUrl : currentUser.photoURL
     });
+    const userRef = collection(getFirestore(), "users", currentUser.email)
+    setDoc(userRef, {
+      uid: currentUser.uid,
+      displayName: name,
+      photoUrl: photoUrl
+    })
     handleClose();
   };
   return (
@@ -75,6 +85,13 @@ function DisplayName() {
           value={name}
           required
           onChange={(e) => setName(e.target.value)}
+        />
+        <TextField
+          margin="normal"
+          label="Photo URL"
+          value={photoUrl}
+          required
+          onChange={(e) => setPhotoUrl(e.target.value)}
         />
       </DialogContent>
       <DialogActions>

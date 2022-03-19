@@ -22,7 +22,7 @@ const app = initializeApp(firebaseConfig);
 function App() {
   const auth = getAuth();
   const [user] = useAuthState(auth);
-  return user ? <MainScreen /> : <Start />;
+  return user && user.emailVerified ? <MainScreen /> : <Start />;
 }
 
 export default App;
