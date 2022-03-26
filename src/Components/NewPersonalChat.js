@@ -1,4 +1,4 @@
-import { doc, getFirestore, setDoc, getDoc, collection, addDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import React from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -28,8 +28,10 @@ export default function NewPersonalChat() {
     const createChat = async (e) => {
         const db = getFirestore();
         const chatsRef = collection(db, "personal");
-        const userRef = doc(getFirestore(), "users", email)
-        getDoc(userRef).then((user) => {
+        const usersRef = collection(db, "users")
+        const q = query(usersRef, where("email", "==", email))
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((user) => {
             const uid = user.data().uid;
             addDoc(chatsRef, {
                 isGroup: false,
