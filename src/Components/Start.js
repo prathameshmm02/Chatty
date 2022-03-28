@@ -1,4 +1,3 @@
-import React from "react";
 import chatImage from "../chatImage.svg";
 import google from "../Google.svg";
 import { useState } from "react";
@@ -9,36 +8,38 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-   sendEmailVerification
+  sendEmailVerification,
 } from "firebase/auth";
-
-const signInWithEmailPass = (e) => {
-  e.preventDefault();
-  const auth = getAuth();
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  try {
-    signInWithEmailAndPassword(auth, email, password);
-  } catch (error) {}
-};
-
-const signUpWithEmailPass = (e) => {
-  e.preventDefault();
-  const auth = getAuth();
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  createUserWithEmailAndPassword(auth, email, password);
-  sendEmailVerification()
-};
-
-const signInWithGoogle = (e) => {
-  const provider = new GoogleAuthProvider();
-  const auth = getAuth();
-  signInWithPopup(auth, provider);
-};
+import { useAlert } from "react-alert";
 
 export default function Start() {
   const [isLoginScreen, setLoginScreen] = useState(true);
+  const alert = useAlert();
+
+  const signInWithEmailPass = (e, email, password) => {
+    e.preventDefault();
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password).catch((err) =>
+      alert.show(err.message)
+    );
+  };
+
+  const signUpWithEmailPass = (e, email, password) => {
+    e.preventDefault();
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((value) => setLoginScreen(value))
+      .catch((err) => alert.show(err.message));
+    sendEmailVerification(auth.currentUser).catch((err) =>
+      alert.show(err.message)
+    );
+  };
+
+  const signInWithGoogle = (e) => {
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+    signInWithPopup(auth, provider).catch((err) => alert.show(err.message));
+  };
 
   return (
     <div className="flex flex-col items-center h-screen container md:flex-row">
@@ -50,24 +51,32 @@ export default function Start() {
   );
 
   function SignIn() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     return (
       <div className="h-2/3 w-1/2 flex flex-col justify-around p-4 rounded-2xl hover:shadow-lg hover:shadow-gray-500/30 transition duration-300 bg-slate-200">
         <h1 className="text-center">Chatty</h1>
         <form
-          onSubmit={signInWithEmailPass}
+          onSubmit={(e) => signInWithEmailPass(e, email, password)}
           className="flex flex-col items-center justify-around gap-y-4"
         >
           <input
-            id="email"
             type="text"
             className="form-control"
             placeholder="E-Mail"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
           />
           <input
-            id="password"
             type="password"
             className="form-control"
             placeholder="Password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
           />
           <button type="submit" className="btn btn-primary w-full">
             Login
@@ -95,30 +104,34 @@ export default function Start() {
   }
 
   function SignUp() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     return (
       <div className="h-2/3 w-1/2 flex flex-col justify-around p-4 rounded-2xl hover:shadow-lg hover:shadow-gray-500/30 transition duration-300 bg-slate-200">
         <h1 className="text-center">Chatty</h1>
         <form
-          onSubmit={signInWithGoogle}
+          onSubmit={(e) => signUpWithEmailPass(e, email, password)}
           className="flex flex-col items-center justify-around gap-y-4"
         >
           <input
-            id="email"
             type="text"
             className="form-control"
             placeholder="E-Mail"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
           />
           <input
-            id="password"
             type="password"
             className="form-control"
             placeholder="Password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
           />
-          <button
-            type="button"
-            className="btn btn-primary w-full"
-            onClick={signUpWithEmailPass}
-          >
+          <button type="submit" className="btn btn-primary w-full">
             Register
           </button>
         </form>

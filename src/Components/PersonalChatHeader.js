@@ -2,15 +2,13 @@
 import { getAuth } from "firebase/auth";
 import { doc, getFirestore } from "firebase/firestore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import AddUser from "./AddUser";
-import DeleteChat from "./DeleteChat";
 
 export default function ChatHeader(props) {
   const chatRef = doc(getFirestore(), "personal", props.id);
   const [chat] = useDocumentData(chatRef);
   let userID = null
   chat.userlist.forEach((uid) => {
-    if (uid != getAuth().currentUser.uid) {
+    if (uid !== getAuth().currentUser.uid) {
       userID = uid
     }
   })
