@@ -1,7 +1,11 @@
 import { getAuth } from "firebase/auth";
+import { Item, Menu, useContextMenu } from "react-contexify";
 import ReactPlayer from "react-player";
 import "../App.css";
 import RandomColor from "./RandomColor";
+
+import "react-contexify/dist/ReactContexify.css";
+import { DeleteRounded } from "@mui/icons-material";
 
 export default function Message(props) {
   let { text, photoURL, displayName, email, mediaUrl, type } = props.message;
@@ -16,6 +20,7 @@ export default function Message(props) {
       mediaUrl={mediaUrl}
       setSelectedImg={props.setSelectedImg}
       type={type}
+      id={props.id}
     />
   ) : (
     <ReceivedMessage
@@ -29,10 +34,25 @@ export default function Message(props) {
   );
 }
 
-function SentMessage({ text, mediaUrl, setSelectedImg, type }) {
+function SentMessage({ text, mediaUrl, setSelectedImg, type, id, isPersonal }) {
+  const MENU_ID = "menu-id";
+  const { show } = useContextMenu({
+    id: MENU_ID,
+  });
+
+  function handleItemClick({ event, props, data, triggerEvent }) {
+    switch (event.currentTarget.id) {
+      case "delete":
+        // TODO - Implement delete logic
+        break;
+    }
+  }
   return (
     <div className="flex justify-end mx-1">
-      <div className="message sent rounded-3xl flex flex-col text-white items-start">
+      <div
+        className="message sent rounded-3xl flex flex-col text-white items-start"
+        onContextMenu={show}
+      >
         {mediaUrl && (
           <Media
             mediaUrl={mediaUrl}
@@ -42,6 +62,11 @@ function SentMessage({ text, mediaUrl, setSelectedImg, type }) {
         )}
         {text}
       </div>
+      <Menu id={MENU_ID}>
+        <Item id="delete" onClick={handleItemClick}>
+          <DeleteRounded /> <span>Delete</span>
+        </Item>
+      </Menu>
     </div>
   );
 }
@@ -102,12 +127,14 @@ function Media({ mediaUrl, setSelectedImg, type }) {
               />
             );
           case "audio":
-            return <ReactPlayer
-            url={mediaUrl}
-            controls={true}
-            width="30vw"
-            height="10vh"
-          />;
+            return (
+              <ReactPlayer
+                url={mediaUrl}
+                controls={true}
+                width="30vw"
+                height="10vh"
+              />
+            );
           default:
             return null;
         }

@@ -15,7 +15,7 @@
     "react-alert": "^7.0.3",
     "react-alert-template-basic": "^1.0.2",
     "react-bootstrap": "^2.2.3",
-    "react-contextmenu": "^2.14.0",
+    "react-contexify": "^5.0.0",
     "react-dom": "^18.0.0",
     "react-firebase-hooks": "^5.0.3",
     "react-player": "^2.10.0",

@@ -9,14 +9,16 @@ import {
   serverTimestamp,
   addDoc,
 } from "firebase/firestore";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import {
+  useCollection
+} from "react-firebase-hooks/firestore";
 import { getAuth } from "firebase/auth";
 import { ProgressBar } from "react-bootstrap";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
-import ImageRoundedIcon from "@mui/icons-material/ImageRounded";
 import { useAlert } from "react-alert";
 import useStorage from "../hooks/useStorage";
 import ChatHeader from "./ChatHeader";
+import { AttachFileRounded } from "@mui/icons-material";
 /**
  * Chat Messages Component
  */
@@ -30,7 +32,7 @@ export default function Chat({ id, setSelectedImg, isPersonal }) {
   );
   const q = query(messagesRef, orderBy("createdAt"));
 
-  const [messages] = useCollectionData(q, { idField: "id" });
+  const [messages] = useCollection(q, { idField: "id" });
 
   const [message, setMessage] = useState("");
 
@@ -104,10 +106,11 @@ export default function Chat({ id, setSelectedImg, isPersonal }) {
       {file && <ProgressBar now={progress} className="absolute w-[70vw]" />}
       <div className="overflow-y-auto h-[80vh]">
         {messages &&
-          messages.map((msg) => (
+          messages.docs.map((msg) => (
             <Message
               key={msg.id}
-              message={msg}
+              message={msg.data()}
+              id={msg.id}
               setSelectedImg={setSelectedImg}
             />
           ))}
@@ -127,7 +130,7 @@ export default function Chat({ id, setSelectedImg, isPersonal }) {
             />
             <label>
               <input type="file" onChange={handleChange} className="w-0 h-0" />
-              <ImageRoundedIcon />
+              <AttachFileRounded className="rotate-45" />
             </label>
           </div>
 
