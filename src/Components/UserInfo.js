@@ -9,7 +9,7 @@ import { useState } from "react";
 export default function UserInfo() {
   const [open, setOpen] = useState(false);
 
-  const docRef = doc(getFirestore(), "users/" + getAuth().currentUser.uid);
+  const docRef = doc(getFirestore(), "users", getAuth().currentUser.uid);
   getDoc(docRef).then((userInfo) => {
     setOpen(!userInfo.exists());
   });

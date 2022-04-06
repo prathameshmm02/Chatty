@@ -1,23 +1,22 @@
-
 import { getAuth } from "firebase/auth";
 import { doc, getFirestore } from "firebase/firestore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 
-export default function ChatHeader(props) {
+export default function PersonalChatHeader(props) {
   const chatRef = doc(getFirestore(), "personal", props.id);
   const [chat] = useDocumentData(chatRef);
-  let userID = null
-  chat.userlist.forEach((uid) => {
-    if (uid !== getAuth().currentUser.uid) {
-      userID = uid
-    }
-  })
-  const userRef = doc(getFirestore(), "users", userID)
+  return chat && <UserDetailHeader chat={chat} />;
+}
+function UserDetailHeader({ chat }) {
+  const userID = chat.userlist.find((uid) => {
+    return uid !== getAuth().currentUser.uid;
+  });
+  const userRef = doc(getFirestore(), "users", userID);
   const [user] = useDocumentData(userRef);
-  
+
   return (
     <>
-      {chat && (
+      {user && (
         <div className="flex flex-row items-center bg-slate-200 h-[10vh]">
           <img
             className="bg-center h-10 w-10 rounded-full m-3"
@@ -25,8 +24,8 @@ export default function ChatHeader(props) {
               user.photoURL
                 ? user.photoURL
                 : "https://avatars.dicebear.com/api/initials/" +
-                user.displayName +
-                ".svg"
+                  user.displayName +
+                  ".svg"
             }
             alt=""
           />

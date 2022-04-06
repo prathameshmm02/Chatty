@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Message from "./Message";
+import PersonalChatHeader from "./PersonalChatHeader";
 import {
   getFirestore,
   collection,
@@ -16,13 +17,17 @@ import ImageRoundedIcon from "@mui/icons-material/ImageRounded";
 import { useAlert } from "react-alert";
 import useStorage from "../hooks/useStorage";
 import ChatHeader from "./ChatHeader";
-import PersonalChatHeader from "./PersonalChatHeader";
 /**
  * Chat Messages Component
  */
 export default function Chat({ id, setSelectedImg, isPersonal }) {
   const db = getFirestore();
-  const messagesRef = collection(db, isPersonal ? "personal" : "chats", id, "messages");
+  const messagesRef = collection(
+    db,
+    isPersonal ? "personal" : "chats",
+    id,
+    "messages"
+  );
   const q = query(messagesRef, orderBy("createdAt"));
 
   const [messages] = useCollectionData(q, { idField: "id" });
@@ -39,14 +44,20 @@ export default function Chat({ id, setSelectedImg, isPersonal }) {
 
   const types = ["image", "video", "audio"];
 
+  const [currentFileType, setCurrentFileType] = useState(null);
+
   const alert = useAlert();
   const handleChange = (e) => {
     let selected = e.target.files[0];
-
-    if (selected && types.includes(selected.type.substring(0, selected.type.indexOf("/")))) {
+    if (
+      selected &&
+      types.includes(selected.type.substring(0, selected.type.indexOf("/")))
+    ) {
       setFile(selected);
+      setCurrentFileType(selected.type);
     } else {
       setFile(null);
+      setCurrentFileType(null);
       alert.show("Please select an image file (png, jpg or gif)");
       console.log(selected.type);
     }
@@ -71,7 +82,6 @@ export default function Chat({ id, setSelectedImg, isPersonal }) {
 
   useEffect(() => {
     if (mediaUrl) {
-      const oldFile = file;
       setFile(null);
       const { displayName, photoURL, email } = getAuth().currentUser;
 
@@ -83,20 +93,16 @@ export default function Chat({ id, setSelectedImg, isPersonal }) {
         photoURL: photoURL,
         email: email,
         mediaUrl: mediaUrl,
-        type: oldFile.type,
+        type: currentFileType,
       });
       setMessage("");
     }
   }, [mediaUrl]);
   return (
     <div className="chat-container">
-      {
-        isPersonal ? <PersonalChatHeader /> :
-          <ChatHeader id={id} />
-      }
-
+      {isPersonal ? <PersonalChatHeader id={id} /> : <ChatHeader id={id} />}
+      {file && <ProgressBar now={progress} className="absolute w-[70vw]" />}
       <div className="overflow-y-auto h-[80vh]">
-        {file && <ProgressBar now={progress} className="sticky" />}
         {messages &&
           messages.map((msg) => (
             <Message

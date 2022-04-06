@@ -1,7 +1,6 @@
 import { doc, getFirestore } from "firebase/firestore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import AddUser from "./AddUser";
-import DeleteChat from "./DeleteChat";
 
 export default function ChatHeader(props) {
   const chatRef = doc(getFirestore(), "chats", props.id);
@@ -27,7 +26,6 @@ export default function ChatHeader(props) {
           </div>
           <div className="ml-auto">
             <AddUser chatID={props.id} />
-            <DeleteChat />
           </div>
         </div>
       )}

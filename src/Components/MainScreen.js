@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import Modal from "./Modal";
-import { collection, getFirestore, setDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 
 export default function MainScreen() {
   const [chatID, setChatID] = useState(null);
@@ -30,13 +30,21 @@ export default function MainScreen() {
   }, [escFunction]);
 
   const [selectedImg, setSelectedImg] = useState(null);
-  const [isPersonal, setPersonal] = useState(false)
+  const [isPersonal, setPersonal] = useState(false);
   return (
     <div>
       <main className="flex flex-row h-screen">
-        <ChatList setChatID={setChatID} isPersonal={isPersonal} setPersonal={setPersonal} />
+        <ChatList
+          setChatID={setChatID}
+          isPersonal={isPersonal}
+          setPersonal={setPersonal}
+        />
         {chatID ? (
-          <Chat id={chatID} setSelectedImg={setSelectedImg} isPersonal={isPersonal} />
+          <Chat
+            id={chatID}
+            setSelectedImg={setSelectedImg}
+            isPersonal={isPersonal}
+          />
         ) : (
           <h4 className="text-center self-center mx-auto">
             Click on a chat to start chatting
@@ -52,8 +60,15 @@ export default function MainScreen() {
 }
 
 function DisplayName() {
-  const currentUser = getAuth().currentUser
-  const [open, setOpen] = useState(currentUser.displayName === null || currentUser.photoURL === null);
+  const currentUser = getAuth().currentUser;
+  const [open, setOpen] = useState(
+    currentUser.displayName === null || currentUser.photoURL === null
+  );
+
+  const docRef = doc(getFirestore(), "users", getAuth().currentUser.uid);
+  getDoc(docRef).then((userInfo) => {
+    setOpen(!userInfo.exists());
+  });
 
   const handleClose = () => {
     setOpen(false);
@@ -65,14 +80,15 @@ function DisplayName() {
   const createUser = () => {
     updateProfile(getAuth().currentUser, {
       displayName: name,
-      photoURL: photoUrl ? photoUrl : currentUser.photoURL
+      photoURL: photoUrl || currentUser.photoURL,
     });
-    const userRef = collection(getFirestore(), "users", currentUser.email)
+    const userRef = doc(getFirestore(), "users", currentUser.uid);
     setDoc(userRef, {
       uid: currentUser.uid,
       displayName: name,
-      photoUrl: photoUrl
-    })
+      photoUrl: photoUrl || currentUser.photoURL,
+      email: currentUser.email,
+    });
     handleClose();
   };
   return (
@@ -90,7 +106,6 @@ function DisplayName() {
           margin="normal"
           label="Photo URL"
           value={photoUrl}
-          required
           onChange={(e) => setPhotoUrl(e.target.value)}
         />
       </DialogContent>

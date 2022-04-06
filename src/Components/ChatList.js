@@ -1,9 +1,13 @@
 import { getAuth } from "firebase/auth";
 import { collection, getFirestore, query, where } from "firebase/firestore";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import {
+  useCollection,
+  useCollectionData,
+} from "react-firebase-hooks/firestore";
 import ChatListItem from "./ChatListItem";
 import NewChat from "./NewChat";
 import NewPersonalChat from "./NewPersonalChat";
+import PersonalChatListItem from "./PersonalChatListItem";
 
 /*
  * List of all chats
@@ -30,9 +34,8 @@ export default function ChatList({ setChatID, isPersonal, setPersonal }) {
             onClick={() => {
               if (isPersonal) {
                 setPersonal(false);
-                setChatID(null)
+                setChatID(null);
               }
-
             }}
           >
             Groups
@@ -42,7 +45,7 @@ export default function ChatList({ setChatID, isPersonal, setPersonal }) {
             onClick={() => {
               if (!isPersonal) {
                 setPersonal(true);
-                setChatID(null)
+                setChatID(null);
               }
             }}
           >
@@ -55,9 +58,11 @@ export default function ChatList({ setChatID, isPersonal, setPersonal }) {
             (isPersonal ? "translate-x-full" : "translate-x-0")
           }
         ></div>
-        {isPersonal ? <PersonalList setChatID={setChatID} /> :
-          <GroupList setChatID={setChatID} />}
-
+        {isPersonal ? (
+          <PersonalList setChatID={setChatID} />
+        ) : (
+          <GroupList setChatID={setChatID} />
+        )}
       </div>
     </div>
   );
@@ -95,17 +100,21 @@ function PersonalList({ setChatID }) {
     where("userlist", "array-contains", auth.currentUser.uid)
   );
 
-  const [chats] = useCollectionData(q, { idField: "chatID" });
+  const [chats] = useCollection(q, { idField: "chatID" });
   return (
     <>
       <div className="overflow-y-auto flex-grow flex-shrink">
         {chats &&
-          chats.map((chat) => (
-            <ChatListItem key={chat.id} chat={chat} setChatID={setChatID} />
+          chats.docs.map((chat) => (
+            <PersonalChatListItem
+              key={chat.data().id}
+              chat={chat.data()}
+              id={chat.id}
+              setChatID={setChatID}
+            />
           ))}
       </div>
       <NewPersonalChat />
     </>
   );
 }
-

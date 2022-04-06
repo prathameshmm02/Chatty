@@ -16,7 +16,7 @@ import { useAlert } from "react-alert";
 
 export default function NewChat() {
   const [open, setOpen] = React.useState(false);
-  const alert = useAlert()
+  const alert = useAlert();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -37,7 +37,7 @@ export default function NewChat() {
     const docSnap = await getDoc(chatsRef);
 
     if (docSnap.exists()) {
-      alert.show("Chat with same ID already exists")
+      alert.show("Chat with same ID already exists");
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!");
