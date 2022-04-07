@@ -1,7 +1,7 @@
 {
   "name": "chat-app",
   "version": "1.0.0",
-  "homepage": "https://prathameshmm02.github.io/chatty",
+  "homepage": "https://prathameshmm02.github.io/Chatty",
   "private": true,
   "dependencies": {
     "@mui/icons-material": "^5.6.0",
