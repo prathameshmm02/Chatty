@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/chatty/static/css/main.592829f6.css",
-    "main.js": "/chatty/static/js/main.e09dd10b.js",
-    "static/js/787.6f726199.chunk.js": "/chatty/static/js/787.6f726199.chunk.js",
-    "static/media/chatImage.svg": "/chatty/static/media/chatImage.d5ff0df8ee504a6f66010854ecc66c99.svg",
-    "static/media/Google.svg": "/chatty/static/media/Google.9b5212eebb266922d2f27658470d2961.svg",
-    "index.html": "/chatty/index.html",
-    "main.592829f6.css.map": "/chatty/static/css/main.592829f6.css.map",
-    "main.e09dd10b.js.map": "/chatty/static/js/main.e09dd10b.js.map",
-    "787.6f726199.chunk.js.map": "/chatty/static/js/787.6f726199.chunk.js.map"
+    "main.css": "/Chatty/static/css/main.592829f6.css",
+    "main.js": "/Chatty/static/js/main.737945fc.js",
+    "static/js/787.6f726199.chunk.js": "/Chatty/static/js/787.6f726199.chunk.js",
+    "static/media/chatImage.svg": "/Chatty/static/media/chatImage.d5ff0df8ee504a6f66010854ecc66c99.svg",
+    "static/media/Google.svg": "/Chatty/static/media/Google.9b5212eebb266922d2f27658470d2961.svg",
+    "index.html": "/Chatty/index.html",
+    "main.592829f6.css.map": "/Chatty/static/css/main.592829f6.css.map",
+    "main.737945fc.js.map": "/Chatty/static/js/main.737945fc.js.map",
+    "787.6f726199.chunk.js.map": "/Chatty/static/js/787.6f726199.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.592829f6.css",
-    "static/js/main.e09dd10b.js"
+    "static/js/main.737945fc.js"
   ]
 }
