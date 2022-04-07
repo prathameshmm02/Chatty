@@ -1,5 +1,5 @@
-import chatImage from "../chatImage.svg";
-import google from "../Google.svg";
+import chatImage from "../assets/ChatImage.svg";
+import google from "../assets/Google.svg";
 import { useState } from "react";
 
 import {

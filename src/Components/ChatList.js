@@ -8,6 +8,7 @@ import ChatListItem from "./ChatListItem";
 import NewChat from "./NewChat";
 import NewPersonalChat from "./NewPersonalChat";
 import PersonalChatListItem from "./PersonalChatListItem";
+import logo from "../assets/Logo.png";
 
 /*
  * List of all chats
@@ -19,8 +20,9 @@ export default function ChatList({ setChatID, isPersonal, setPersonal }) {
 
   return (
     <div className="chatlist-container flex flex-col h-screen">
-      <div className="flex flex-row justify-between bg-slate-400 p-2">
-        <h3>Chatty</h3>
+      <div className="flex flex-row justify-between bg-slate-400 p-2 h-[10vh] place-items-center">
+        <img src={logo} className="h-full w-auto" alt="logo"/>
+        <h3 className="mr-auto ml-2 my-0 p-0">Chatty</h3>
         <button onClick={signOut}>
           <span className="material-icons rounded-full p-2 hover:bg-slate-200">
             logout
