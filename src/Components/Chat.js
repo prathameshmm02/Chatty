@@ -111,6 +111,8 @@ export default function Chat({ id, setSelectedImg, isPersonal }) {
               key={msg.id}
               message={msg.data()}
               id={msg.id}
+              chatId={id}
+              isPersonal={isPersonal}
               setSelectedImg={setSelectedImg}
             />
           ))}

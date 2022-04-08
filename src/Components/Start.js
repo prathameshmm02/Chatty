@@ -42,7 +42,7 @@ export default function Start() {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen container md:flex-row">
+    <div className="flex flex-col items-center h-screen container md:flex-row ">
       <div>
         <img src={chatImage} className="m-3 w-11/12" alt="logo" />
       </div>
@@ -54,7 +54,7 @@ export default function Start() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     return (
-      <div className="h-2/3 w-1/2 flex flex-col justify-around p-4 rounded-2xl hover:shadow-lg hover:shadow-gray-500/30 transition duration-300 bg-slate-200">
+      <div className="h-2/3 md:w-1/2 w-2/3 flex flex-col justify-around p-4 rounded-2xl hover:shadow-lg hover:shadow-gray-500/30 transition duration-300 bg-slate-200">
         <h1 className="text-center">Chatty</h1>
         <form
           onSubmit={(e) => signInWithEmailPass(e, email, password)}

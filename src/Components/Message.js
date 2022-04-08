@@ -6,6 +6,7 @@ import RandomColor from "./RandomColor";
 
 import "react-contexify/dist/ReactContexify.css";
 import { DeleteRounded } from "@mui/icons-material";
+import { deleteDoc, doc, getFirestore } from "firebase/firestore";
 
 export default function Message(props) {
   let { text, photoURL, displayName, email, mediaUrl, type } = props.message;
@@ -21,6 +22,8 @@ export default function Message(props) {
       setSelectedImg={props.setSelectedImg}
       type={type}
       id={props.id}
+      chatId={props.chatId}
+      isPersonal={props.isPersonal}
     />
   ) : (
     <ReceivedMessage
@@ -34,7 +37,15 @@ export default function Message(props) {
   );
 }
 
-function SentMessage({ text, mediaUrl, setSelectedImg, type, id, isPersonal }) {
+function SentMessage({
+  text,
+  mediaUrl,
+  setSelectedImg,
+  type,
+  id,
+  isPersonal,
+  chatId,
+}) {
   const MENU_ID = "menu-id";
   const { show } = useContextMenu({
     id: MENU_ID,
@@ -43,7 +54,15 @@ function SentMessage({ text, mediaUrl, setSelectedImg, type, id, isPersonal }) {
   function handleItemClick({ event, props, data, triggerEvent }) {
     switch (event.currentTarget.id) {
       case "delete":
-        // TODO - Implement delete logic
+        deleteDoc(
+          doc(
+            getFirestore(),
+            isPersonal ? "personal" : "chats",
+            chatId,
+            "messages",
+            id
+          )
+        );
         break;
     }
   }

@@ -37,7 +37,13 @@ export default function NewChat({ chatID }) {
       >
         <PersonAddAlt1RoundedIcon />
       </button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: { borderRadius: 20 },
+        }}
+      >
         <DialogTitle>Add User</DialogTitle>
         <DialogContent>
           <TextField

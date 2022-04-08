@@ -49,7 +49,13 @@ export default function NewPersonalChat() {
         </Fab>
       </div>
 
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: { borderRadius: 20 },
+        }}
+      >
         <DialogTitle>Create New Chat</DialogTitle>
         <DialogContent>
           <TextField

@@ -92,7 +92,13 @@ function DisplayName() {
     handleClose();
   };
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      PaperProps={{
+        style: { borderRadius: 20 },
+      }}
+    >
       <DialogTitle>Your Name</DialogTitle>
       <DialogContent>
         <TextField
