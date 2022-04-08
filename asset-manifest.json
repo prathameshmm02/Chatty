@@ -1,17 +1,18 @@
 {
   "files": {
-    "main.css": "/Chatty/static/css/main.592829f6.css",
-    "main.js": "/Chatty/static/js/main.737945fc.js",
+    "main.css": "/Chatty/static/css/main.53de1e80.css",
+    "main.js": "/Chatty/static/js/main.653b6212.js",
     "static/js/787.6f726199.chunk.js": "/Chatty/static/js/787.6f726199.chunk.js",
-    "static/media/chatImage.svg": "/Chatty/static/media/chatImage.d5ff0df8ee504a6f66010854ecc66c99.svg",
+    "static/media/Logo.png": "/Chatty/static/media/Logo.b84a6b3dc387052f0159.png",
+    "static/media/ChatImage.svg": "/Chatty/static/media/ChatImage.d5ff0df8ee504a6f66010854ecc66c99.svg",
     "static/media/Google.svg": "/Chatty/static/media/Google.9b5212eebb266922d2f27658470d2961.svg",
     "index.html": "/Chatty/index.html",
-    "main.592829f6.css.map": "/Chatty/static/css/main.592829f6.css.map",
-    "main.737945fc.js.map": "/Chatty/static/js/main.737945fc.js.map",
+    "main.53de1e80.css.map": "/Chatty/static/css/main.53de1e80.css.map",
+    "main.653b6212.js.map": "/Chatty/static/js/main.653b6212.js.map",
     "787.6f726199.chunk.js.map": "/Chatty/static/js/787.6f726199.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.592829f6.css",
-    "static/js/main.737945fc.js"
+    "static/css/main.53de1e80.css",
+    "static/js/main.653b6212.js"
   ]
 }
