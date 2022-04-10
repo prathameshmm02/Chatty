@@ -9,6 +9,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { useAlert } from "react-alert";
 
@@ -82,6 +83,18 @@ export default function Start() {
             Login
           </button>
         </form>
+        <button
+          type="button"
+          className="btn btn-link"
+          onClick={() => {
+            const auth = getAuth();
+            sendPasswordResetEmail(auth, email).catch((err) =>
+              alert.show(err.message)
+            );
+          }}
+        >
+          Forgot Password
+        </button>
         <button
           type="button"
           className="btn btn-link"

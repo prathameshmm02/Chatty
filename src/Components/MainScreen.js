@@ -62,7 +62,7 @@ export default function MainScreen() {
 function DisplayName() {
   const currentUser = getAuth().currentUser;
   const [open, setOpen] = useState(
-    currentUser.displayName === null || currentUser.photoURL === null
+    currentUser.displayName === null && currentUser.photoURL === null
   );
 
   const docRef = doc(getFirestore(), "users", getAuth().currentUser.uid);

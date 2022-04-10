@@ -39,8 +39,6 @@ export default function NewChat() {
     if (docSnap.exists()) {
       alert.show("Chat with same ID already exists");
     } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
       await setDoc(chatsRef, {
         chatDescription: description,
         chatID: chatID,

@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { arrayUnion, doc, getFirestore, updateDoc } from "firebase/firestore";
 
-export default function NewChat({ chatID }) {
+export default function AddUser({ chatID }) {
   const [email, setEmail] = useState(null);
   const [open, setOpen] = useState(false);
 

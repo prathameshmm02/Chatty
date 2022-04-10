@@ -1,10 +1,18 @@
+import { GroupRounded } from "@mui/icons-material";
+import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { doc, getFirestore } from "firebase/firestore";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import { useState } from "react";
+import {
+  useDocumentData,
+  useDocumentDataOnce,
+} from "react-firebase-hooks/firestore";
 import AddUser from "./AddUser";
+import LeaveGroup from "./LeaveGroup";
 
 export default function ChatHeader(props) {
   const chatRef = doc(getFirestore(), "chats", props.id);
   const [chat] = useDocumentData(chatRef);
+
   return (
     <>
       {chat && (
@@ -12,11 +20,10 @@ export default function ChatHeader(props) {
           <img
             className="bg-center h-10 w-10 rounded-full m-3"
             src={
-              chat.chatImage
-                ? chat.chatImage
-                : "https://avatars.dicebear.com/api/initials/" +
-                  chat.chatName +
-                  ".svg"
+              chat.chatImage ||
+              "https://avatars.dicebear.com/api/initials/" +
+                chat.chatName +
+                ".svg"
             }
             alt=""
           />
@@ -25,10 +32,77 @@ export default function ChatHeader(props) {
             <p className="p-0 m-0">{chat.chatDescription}</p>
           </div>
           <div className="ml-auto">
+            <UserList chat={chat} />
             <AddUser chatID={props.id} />
+            <LeaveGroup chatID={props.id} />
           </div>
         </div>
       )}
     </>
   );
+
+  function UserList({ chat }) {
+    const userlist = chat.userlist;
+    const [open, setOpen] = useState(false);
+
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+
+    return (
+      <>
+        <button
+          className="mr-2 p-3 transition duration-300 rounded-full hover:bg-slate-400 h-fit"
+          onClick={handleClickOpen}
+        >
+          <GroupRounded />
+        </button>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          PaperProps={{
+            style: { borderRadius: 20 },
+          }}
+        >
+          <DialogTitle>Group members</DialogTitle>
+          <DialogContent>
+            {userlist.forEach((uid) => {
+              <UserItem uid={uid} />;
+            })}
+          </DialogContent>
+        </Dialog>
+      </>
+    );
+  }
+
+  function UserItem({ uid }) {
+    const userRef = doc(getFirestore(), "users", uid);
+    const [user] = useDocumentDataOnce(userRef);
+    return (
+      <div
+        className="chatItem-container flex items-center cursor-pointer content-center rounded-xl m-1 w-auto hover:bg-slate-300"
+        onClick={() => {
+          props.setChatID(props.id);
+        }}
+      >
+        <img
+          className="bg-center h-10 w-10 rounded-full m-3"
+          src={
+            user.photoURL ||
+            "https://avatars.dicebear.com/api/initials/" +
+              user.displayName +
+              ".svg"
+          }
+          alt=""
+        />
+        <div className="flex flex-col content-center">
+          <h6 className="p-0 m-0">{user.displayName}</h6>
+        </div>
+      </div>
+    );
+  }
 }

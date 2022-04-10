@@ -9,9 +9,7 @@ import {
   serverTimestamp,
   addDoc,
 } from "firebase/firestore";
-import {
-  useCollection
-} from "react-firebase-hooks/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
 import { getAuth } from "firebase/auth";
 import { ProgressBar } from "react-bootstrap";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
@@ -70,27 +68,28 @@ export default function Chat({ id, setSelectedImg, isPersonal }) {
   const sendMessage = async (e) => {
     e.preventDefault();
     const { displayName, photoURL, email } = getAuth().currentUser;
-
+    const text = message;
+    setMessage("");
     await addDoc(messagesRef, {
       id: Date.now(),
       createdAt: serverTimestamp(),
-      text: message,
+      text: text,
       displayName: displayName,
       photoURL: photoURL,
       email: email,
     });
-    setMessage("");
   };
 
   useEffect(() => {
     if (mediaUrl) {
       setFile(null);
       const { displayName, photoURL, email } = getAuth().currentUser;
-
+      const text = message;
+      setMessage("");
       addDoc(messagesRef, {
         id: Date.now(),
         createdAt: serverTimestamp(),
-        text: message,
+        text: text,
         displayName: displayName,
         photoURL: photoURL,
         email: email,

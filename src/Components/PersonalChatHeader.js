@@ -21,11 +21,10 @@ function UserDetailHeader({ chat }) {
           <img
             className="bg-center h-10 w-10 rounded-full m-3"
             src={
-              user.photoURL
-                ? user.photoURL
-                : "https://avatars.dicebear.com/api/initials/" +
-                  user.displayName +
-                  ".svg"
+              user.photoUrl ||
+              "https://avatars.dicebear.com/api/initials/" +
+                user.displayName +
+                ".svg"
             }
             alt=""
           />

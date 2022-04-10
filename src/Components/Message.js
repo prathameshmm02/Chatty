@@ -33,6 +33,7 @@ export default function Message(props) {
       mediaUrl={mediaUrl}
       setSelectedImg={props.setSelectedImg}
       type={type}
+      isPersonal={props.isPersonal}
     />
   );
 }
@@ -97,18 +98,28 @@ function ReceivedMessage({
   mediaUrl,
   setSelectedImg,
   type,
+  isPersonal,
 }) {
   return (
     <div className="flex items-end">
-      <img
-        className="bg-center h-10 w-10 rounded-full m-3"
-        src={photoURL}
-        alt=""
-      />
-      <div className="message rounded-2xl flex flex-col text-white items-start ">
-        <h6 style={{ color: RandomColor(displayName) }} className="m-0">
-          {displayName}
-        </h6>
+      {!isPersonal && (
+        <img
+          className="bg-center h-10 w-10 rounded-full m-3 bg-no-repeat bg-cover"
+          src={photoURL}
+          alt=""
+        />
+      )}
+      <div
+        className={
+          "message flex flex-col text-white items-start " +
+          (isPersonal ? " rounded-3xl" : " rounded-2xl")
+        }
+      >
+        {!isPersonal && (
+          <h6 style={{ color: RandomColor(displayName) }} className="m-0">
+            {displayName}
+          </h6>
+        )}
         {mediaUrl && (
           <Media
             mediaUrl={mediaUrl}
