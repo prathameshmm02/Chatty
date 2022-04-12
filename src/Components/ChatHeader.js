@@ -1,8 +1,9 @@
 import { GroupRounded } from "@mui/icons-material";
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
-import { doc, getFirestore } from "firebase/firestore";
+import { collection, doc, getFirestore, query, where } from "firebase/firestore";
 import { useState } from "react";
 import {
+  useCollectionData,
   useDocumentData,
   useDocumentDataOnce,
 } from "react-firebase-hooks/firestore";
@@ -22,8 +23,8 @@ export default function ChatHeader(props) {
             src={
               chat.chatImage ||
               "https://avatars.dicebear.com/api/initials/" +
-                chat.chatName +
-                ".svg"
+              chat.chatName +
+              ".svg"
             }
             alt=""
           />
@@ -53,6 +54,7 @@ export default function ChatHeader(props) {
       setOpen(true);
     };
 
+
     return (
       <>
         <button
@@ -62,6 +64,7 @@ export default function ChatHeader(props) {
           <GroupRounded />
         </button>
         <Dialog
+        fullWidth
           open={open}
           onClose={handleClose}
           PaperProps={{
@@ -70,9 +73,9 @@ export default function ChatHeader(props) {
         >
           <DialogTitle>Group members</DialogTitle>
           <DialogContent>
-            {userlist.forEach((uid) => {
-              <UserItem uid={uid} />;
-            })}
+            {userlist && userlist.map(user =>
+              <UserItem uid={user} />
+            )}
           </DialogContent>
         </Dialog>
       </>
@@ -80,22 +83,25 @@ export default function ChatHeader(props) {
   }
 
   function UserItem({ uid }) {
-    const userRef = doc(getFirestore(), "users", uid);
-    const [user] = useDocumentDataOnce(userRef);
-    return (
+    const userRef = collection(getFirestore(), "users");
+    const q = query(userRef, where("email", "==", uid))
+    const [userlist] = useCollectionData(q);
+    let user = null
+    if(userlist) {
+      user = userlist.at(0)
+    }
+    
+    return user &&
       <div
         className="chatItem-container flex items-center cursor-pointer content-center rounded-xl m-1 w-auto hover:bg-slate-300"
-        onClick={() => {
-          props.setChatID(props.id);
-        }}
       >
         <img
           className="bg-center h-10 w-10 rounded-full m-3"
           src={
-            user.photoURL ||
+            user.photoUrl ||
             "https://avatars.dicebear.com/api/initials/" +
-              user.displayName +
-              ".svg"
+            user.displayName +
+            ".svg"
           }
           alt=""
         />
@@ -103,6 +109,6 @@ export default function ChatHeader(props) {
           <h6 className="p-0 m-0">{user.displayName}</h6>
         </div>
       </div>
-    );
-  }
+    };
+
 }
