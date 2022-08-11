@@ -4,8 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { transitions, positions, Provider as AlertProvider } from "react-alert";
-import AlertTemplate from "react-alert-template-basic";
+import { transitions, positions, Provider } from "@blaumaus/react-alert";
+import AlertTemplate from "./alert/react-alert-template";
 
 const options = {
   // you can also just use 'bottom center'
@@ -18,9 +18,9 @@ const options = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <AlertProvider template={AlertTemplate} {...options}>
+    <Provider template={AlertTemplate} {...options}>
       <App />
-    </AlertProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
