@@ -8,7 +8,7 @@ import {
 import { getAuth } from "firebase/auth";
 import { arrayRemove, doc, getFirestore, setDoc } from "firebase/firestore";
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import Button from './button/Button'
 
 export default function LeaveGroup({ id }) {
   const [open, setOpen] = useState(false);

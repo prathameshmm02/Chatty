@@ -9,10 +9,10 @@ import {
   Box,
   Fab,
 } from "@mui/material";
-import { Button } from "react-bootstrap";
+import Button from './button/Button'
 import AddIcon from "@mui/icons-material/Add";
 import { getAuth } from "firebase/auth";
-import { useAlert } from "react-alert";
+import { useAlert } from "@blaumaus/react-alert";
 
 export default function NewChat() {
   const [open, setOpen] = React.useState(false);

@@ -1,11 +1,11 @@
 import "./App.css";
 
-import MainScreen from "./Components/MainScreen";
+import MainScreen from "./components/MainScreen";
 import "firebase/app";
 import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { useAuthState } from "react-firebase-hooks/auth";
-import Start from "./Components/Start";
+import Start from "./components/Start";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCyFLNN1H6jLMQH8Ld004LXL6p06lbjIAA",

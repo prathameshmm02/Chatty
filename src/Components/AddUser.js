@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PersonAddAlt1RoundedIcon from "@mui/icons-material/PersonAddAlt1Rounded";
-import { Button } from "react-bootstrap";
+import Button from './button/Button'
 import {
   Dialog,
   DialogActions,

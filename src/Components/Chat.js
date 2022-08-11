@@ -1,22 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import Message from "./Message";
-import PersonalChatHeader from "./PersonalChatHeader";
-import {
-  getFirestore,
-  collection,
-  query,
-  orderBy,
-  serverTimestamp,
-  addDoc,
-} from "firebase/firestore";
-import { useCollection } from "react-firebase-hooks/firestore";
-import { getAuth } from "firebase/auth";
-import { ProgressBar } from "react-bootstrap";
+import { useAlert } from "@blaumaus/react-alert";
+import { AttachFileRounded } from "@mui/icons-material";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
-import { useAlert } from "react-alert";
+import { getAuth } from "firebase/auth";
+import {
+  addDoc, collection, getFirestore, orderBy, query, serverTimestamp
+} from "firebase/firestore";
+import React, { useEffect, useRef, useState } from "react";
+import { useCollection } from "react-firebase-hooks/firestore";
 import useStorage from "../hooks/useStorage";
 import ChatHeader from "./ChatHeader";
-import { AttachFileRounded } from "@mui/icons-material";
+import Message from "./Message";
+import PersonalChatHeader from "./PersonalChatHeader";
 /**
  * Chat Messages Component
  */
@@ -102,7 +96,7 @@ export default function Chat({ id, setSelectedImg, isPersonal }) {
   return (
     <div className="chat-container">
       {isPersonal ? <PersonalChatHeader id={id} /> : <ChatHeader id={id} />}
-      {file && <ProgressBar now={progress} className="absolute w-[70vw]" />}
+      {file && <progress value={progress} max="100" className="absolute w-[70vw]" />}
       <div className="overflow-y-auto h-[80vh]">
         {messages &&
           messages.docs.map((msg) => (

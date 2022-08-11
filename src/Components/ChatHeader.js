@@ -4,8 +4,7 @@ import { collection, doc, getFirestore, query, where } from "firebase/firestore"
 import { useState } from "react";
 import {
   useCollectionData,
-  useDocumentData,
-  useDocumentDataOnce,
+  useDocumentData
 } from "react-firebase-hooks/firestore";
 import AddUser from "./AddUser";
 import LeaveGroup from "./LeaveGroup";

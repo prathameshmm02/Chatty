@@ -1,5 +1,5 @@
 import { getAuth } from "firebase/auth";
-import { Button } from "react-bootstrap";
+import Button from './button/Button'
 import { doc, getFirestore, getDoc, setDoc } from "firebase/firestore";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";

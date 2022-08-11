@@ -11,7 +11,7 @@ import {
   sendEmailVerification,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { useAlert } from "react-alert";
+import { useAlert } from "@blaumaus/react-alert";
 
 export default function Start() {
   const [isLoginScreen, setLoginScreen] = useState(true);

@@ -9,7 +9,7 @@ import {
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import { DialogActions, DialogContent, TextField, Fab } from "@mui/material";
-import { Button } from "react-bootstrap";
+import Button from './button/Button'
 import AddIcon from "@mui/icons-material/Add";
 import { getAuth } from "firebase/auth";
 import { useState } from "react";

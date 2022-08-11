@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import Chat from "./Chat";
 import ChatList from "./ChatList";
 import { getAuth, updateProfile } from "firebase/auth";
-import { Button } from "react-bootstrap";
+import Button from './button/Button'
 import {
   Dialog,
   DialogActions,
