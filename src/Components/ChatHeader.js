@@ -1,10 +1,16 @@
 import { GroupRounded } from "@mui/icons-material";
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
-import { collection, doc, getFirestore, query, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getFirestore,
+  query,
+  where,
+} from "firebase/firestore";
 import { useState } from "react";
 import {
   useCollectionData,
-  useDocumentData
+  useDocumentData,
 } from "react-firebase-hooks/firestore";
 import AddUser from "./AddUser";
 import LeaveGroup from "./LeaveGroup";
@@ -22,8 +28,8 @@ export default function ChatHeader(props) {
             src={
               chat.chatImage ||
               "https://avatars.dicebear.com/api/initials/" +
-              chat.chatName +
-              ".svg"
+                chat.chatName +
+                ".svg"
             }
             alt=""
           />
@@ -53,7 +59,6 @@ export default function ChatHeader(props) {
       setOpen(true);
     };
 
-
     return (
       <>
         <button
@@ -63,7 +68,7 @@ export default function ChatHeader(props) {
           <GroupRounded />
         </button>
         <Dialog
-        fullWidth
+          fullWidth
           open={open}
           onClose={handleClose}
           PaperProps={{
@@ -72,9 +77,7 @@ export default function ChatHeader(props) {
         >
           <DialogTitle>Group members</DialogTitle>
           <DialogContent>
-            {userlist && userlist.map(user =>
-              <UserItem uid={user} />
-            )}
+            {userlist && userlist.map((user) => <UserItem uid={user} />)}
           </DialogContent>
         </Dialog>
       </>
@@ -83,31 +86,31 @@ export default function ChatHeader(props) {
 
   function UserItem({ uid }) {
     const userRef = collection(getFirestore(), "users");
-    const q = query(userRef, where("email", "==", uid))
+    const q = query(userRef, where("email", "==", uid));
     const [userlist] = useCollectionData(q);
-    let user = null
-    if(userlist) {
-      user = userlist.at(0)
+    let user = null;
+    if (userlist) {
+      user = userlist.at(0);
     }
-    
-    return user &&
-      <div
-        className="chatItem-container flex items-center cursor-pointer content-center rounded-xl m-1 w-auto hover:bg-slate-300"
-      >
-        <img
-          className="bg-center h-10 w-10 rounded-full m-3"
-          src={
-            user.photoUrl ||
-            "https://avatars.dicebear.com/api/initials/" +
-            user.displayName +
-            ".svg"
-          }
-          alt=""
-        />
-        <div className="flex flex-col content-center">
-          <h6 className="p-0 m-0">{user.displayName}</h6>
-        </div>
-      </div>
-    };
 
+    return (
+      user && (
+        <div className="chatItem-container flex items-center cursor-pointer content-center rounded-xl m-1 w-auto hover:bg-slate-300">
+          <img
+            className="bg-center h-10 w-10 rounded-full m-3"
+            src={
+              user.photoUrl ||
+              "https://avatars.dicebear.com/api/initials/" +
+                user.displayName +
+                ".svg"
+            }
+            alt=""
+          />
+          <div className="flex flex-col content-center">
+            <h6 className="p-0 m-0">{user.displayName}</h6>
+          </div>
+        </div>
+      )
+    );
+  }
 }

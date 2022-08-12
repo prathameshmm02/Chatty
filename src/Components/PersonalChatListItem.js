@@ -1,9 +1,14 @@
 import { getAuth } from "firebase/auth";
 import { doc, getFirestore } from "firebase/firestore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
+import { useDispatch } from "react-redux";
+import { setCurrentChat } from "../state/chatSlice";
 
-export default function PersonalChatListItem(props) {
-  const { userlist } = props.chat;
+export default function PersonalChatListItem({ chat }) {
+  const { userlist } = chat;
+
+  const dispatch = useDispatch();
+
   let userID = null;
   userlist.forEach((uid) => {
     if (uid !== getAuth().currentUser.uid) {
@@ -17,7 +22,7 @@ export default function PersonalChatListItem(props) {
       <div
         className="chatItem-container flex items-center cursor-pointer content-center rounded-xl m-1 w-auto hover:bg-slate-300"
         onClick={() => {
-          props.setChatID(props.id);
+          dispatch(setCurrentChat({ chat, isPersonal: true }));
         }}
       >
         <img

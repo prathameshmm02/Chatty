@@ -1,11 +1,17 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { transitions, positions, Provider } from "@blaumaus/react-alert";
+import {
+  transitions,
+  positions,
+  Provider as AlertProvider,
+} from "@blaumaus/react-alert";
 import AlertTemplate from "./alert/react-alert-template";
+import { Provider } from "react-redux";
+import store from "./state/store";
 
 const options = {
   // you can also just use 'bottom center'
@@ -16,13 +22,15 @@ const options = {
   transition: transitions.scale,
 };
 
-ReactDOM.render(
+const root = createRoot(document.getElementById("root"));
+root.render(
   <React.StrictMode>
-    <Provider template={AlertTemplate} {...options}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
+    <AlertProvider template={AlertTemplate} {...options}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </AlertProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

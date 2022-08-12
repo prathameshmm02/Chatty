@@ -1,8 +1,3 @@
-import React, { useCallback, useEffect, useState } from "react";
-import Chat from "./Chat";
-import ChatList from "./ChatList";
-import { getAuth, updateProfile } from "firebase/auth";
-import Button from './button/Button'
 import {
   Dialog,
   DialogActions,
@@ -10,41 +5,41 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-import Modal from "./Modal";
+import { getAuth, updateProfile } from "firebase/auth";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { currentChat, resetCurrentChat } from "../state/chatSlice";
+import Button from "./button/Button";
+import Chat from "./Chat";
+import ChatList from "./ChatList";
+import Modal from "./Modal";
 
 export default function MainScreen() {
-  const [chatID, setChatID] = useState(null);
-  const escFunction = useCallback((event) => {
-    if (event.key === "Escape") {
-      setChatID(null);
-    }
-  }, []);
+  const { chat } = useSelector(currentChat);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    const escFunction = (e) => {
+      if (e.key === "Escape") {
+        dispatch(resetCurrentChat());
+      }
+    };
+
     document.addEventListener("keydown", escFunction, false);
 
     return () => {
       document.removeEventListener("keydown", escFunction, false);
     };
-  }, [escFunction]);
+  }, [dispatch]);
 
   const [selectedImg, setSelectedImg] = useState(null);
-  const [isPersonal, setPersonal] = useState(false);
   return (
     <div>
       <main className="flex flex-row h-screen">
-        <ChatList
-          setChatID={setChatID}
-          isPersonal={isPersonal}
-          setPersonal={setPersonal}
-        />
-        {chatID ? (
-          <Chat
-            id={chatID}
-            setSelectedImg={setSelectedImg}
-            isPersonal={isPersonal}
-          />
+        <ChatList />
+        {chat ? (
+          <Chat setSelectedImg={setSelectedImg} />
         ) : (
           <h4 className="text-center self-center mx-auto">
             Click on a chat to start chatting

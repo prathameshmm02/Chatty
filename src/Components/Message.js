@@ -65,6 +65,8 @@ function SentMessage({
           )
         );
         break;
+      default:
+        break;
     }
   }
   return (

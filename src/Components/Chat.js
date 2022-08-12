@@ -3,28 +3,39 @@ import { AttachFileRounded } from "@mui/icons-material";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import { getAuth } from "firebase/auth";
 import {
-  addDoc, collection, getFirestore, orderBy, query, serverTimestamp
+  addDoc,
+  collection,
+  getFirestore,
+  orderBy,
+  query,
+  serverTimestamp,
 } from "firebase/firestore";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
+import { useSelector } from "react-redux";
 import useStorage from "../hooks/useStorage";
+import { currentChat } from "../state/chatSlice";
 import ChatHeader from "./ChatHeader";
 import Message from "./Message";
 import PersonalChatHeader from "./PersonalChatHeader";
 /**
  * Chat Messages Component
  */
-export default function Chat({ id, setSelectedImg, isPersonal }) {
+export default function Chat({ setSelectedImg }) {
   const db = getFirestore();
+
+  const { chat, isPersonal } = useSelector(currentChat);
+  console.log(chat);
   const messagesRef = collection(
     db,
     isPersonal ? "personal" : "chats",
-    id,
+    chat.chatId,
     "messages"
   );
   const q = query(messagesRef, orderBy("createdAt"));
 
   const [messages] = useCollection(q, { idField: "id" });
+  console.log(messages);
 
   const [message, setMessage] = useState("");
 
@@ -95,8 +106,10 @@ export default function Chat({ id, setSelectedImg, isPersonal }) {
   }, [mediaUrl]);
   return (
     <div className="chat-container">
-      {isPersonal ? <PersonalChatHeader id={id} /> : <ChatHeader id={id} />}
-      {file && <progress value={progress} max="100" className="absolute w-[70vw]" />}
+      {isPersonal ? <PersonalChatHeader /> : <ChatHeader />}
+      {file && (
+        <progress value={progress} max="100" className="absolute w-[70vw]" />
+      )}
       <div className="overflow-y-auto h-[80vh]">
         {messages &&
           messages.docs.map((msg) => (
@@ -104,14 +117,14 @@ export default function Chat({ id, setSelectedImg, isPersonal }) {
               key={msg.id}
               message={msg.data()}
               id={msg.id}
-              chatId={id}
+              chatId={chat.chatId}
               isPersonal={isPersonal}
               setSelectedImg={setSelectedImg}
             />
           ))}
         <span ref={dummy}></span>
       </div>
-      {id && (
+      {chat && (
         <form
           className="flex flex-row items-center justify-around gap-1 mx-2 h-[10vh] p-2"
           onSubmit={sendMessage}
